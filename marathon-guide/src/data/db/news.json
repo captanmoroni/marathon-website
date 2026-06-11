@@ -1,0 +1,87 @@
+{
+  "fetchedAt": "2026-06-10T15:51:45.509Z",
+  "feed": "https://www.bungie.net/en/rss/News",
+  "note": "Merged official-feed items with seeded sourced entries. Re-run `npm run ingest:news` to refresh.",
+  "items": [
+    {
+      "id": "bungie-2026-06-09-0",
+      "date": "2026-06-09",
+      "title": "Marathon Update 1.1.0.1",
+      "summary": "The one about Sentinel Mastery Entries",
+      "url": "https://www.bungie.net/7/en/News/Article/marathon_update_1_1_0_1",
+      "sourceName": "Bungie.net"
+    },
+    {
+      "id": "bungie-2026-06-02-1",
+      "date": "2026-06-02",
+      "title": "Marathon Update 1.1.0",
+      "summary": "The one where the shadows move.",
+      "url": "https://www.bungie.net/7/en/News/Article/marathon_update_1_1_0",
+      "sourceName": "Bungie.net"
+    },
+    {
+      "id": "s2-launch",
+      "date": "2026-06-02",
+      "title": "Season 2 \"Nightfall\" is live",
+      "summary": "Night Marsh zone, the Sentinel Runner shell, The Cradle stat-customization system, Frost Mine and Vector Grenade, faster faction progression, and a recovery cap reduction (100% → 70%).",
+      "url": "https://www.bungie.net/7/en/News/article/welcome_season_2",
+      "sourceName": "Bungie.net"
+    },
+    {
+      "id": "bungie-2026-05-26-2",
+      "date": "2026-05-26",
+      "title": "Marathon Update 1.0.9.1",
+      "summary": "The one where Rook escapes.",
+      "url": "https://www.bungie.net/7/en/News/Article/marathon_update_1_0_9_1",
+      "sourceName": "Bungie.net"
+    },
+    {
+      "id": "bungie-2026-05-19-3",
+      "date": "2026-05-19",
+      "title": "Marathon Update 1.0.9",
+      "summary": "The one about the Warden Hunt",
+      "url": "https://www.bungie.net/7/en/News/Article/marathon_update_109",
+      "sourceName": "Bungie.net"
+    },
+    {
+      "id": "bungie-2026-05-14-4",
+      "date": "2026-05-14",
+      "title": "Launch, Learnings, and What’s Next",
+      "summary": "Marathon’s game director reflects on the journey so far and the weird and wild path ahead.",
+      "url": "https://www.bungie.net/7/en/News/Article/launch_learning_whatsnext",
+      "sourceName": "Bungie.net"
+    },
+    {
+      "id": "bungie-2026-05-05-5",
+      "date": "2026-05-05",
+      "title": "Marathon Update 1.0.6.3",
+      "summary": "The one about Grenade stacks.",
+      "url": "https://www.bungie.net/7/en/News/Article/marathon_update_1063",
+      "sourceName": "Bungie.net"
+    },
+    {
+      "id": "ranked-beta",
+      "date": "2026-03-21",
+      "title": "Ranked mode enters beta",
+      "summary": "Six ranks (Bronze through Pinnacle) with three divisions each; Platinum+ unlocks more dangerous zones. Loadouts must meet a minimum credit value, and a Holotag sets score targets.",
+      "url": "https://en.wikipedia.org/wiki/Marathon_(2026_video_game)",
+      "sourceName": "Wikipedia (release coverage)"
+    },
+    {
+      "id": "cryo-archive-unlock",
+      "date": "2026-03-20",
+      "title": "Cryo Archive endgame zone unlocked",
+      "summary": "The community ARG concluded, opening the hub-and-spoke endgame zone. Bungie had asked reviewers to hold final verdicts until this content launched.",
+      "url": "https://en.wikipedia.org/wiki/Marathon_(2026_video_game)",
+      "sourceName": "Wikipedia (release coverage)"
+    },
+    {
+      "id": "launch",
+      "date": "2026-03-05",
+      "title": "Marathon launches on PS5, Windows, and Xbox Series X|S",
+      "summary": "Bungie's extraction shooter releases with full cross-play and cross-save, six factions, solos and trios, and a cosmetics-only monetization model (Silk / Lux).",
+      "url": "https://en.wikipedia.org/wiki/Marathon_(2026_video_game)",
+      "sourceName": "Wikipedia (release coverage)"
+    }
+  ]
+}

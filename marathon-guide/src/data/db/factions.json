@@ -1,0 +1,164 @@
+[
+  {
+    "id": "cyberacme",
+    "slug": "cyberacme",
+    "type": "faction",
+    "name": "CyberAcme",
+    "color": "#00e5ff",
+    "icon": "Boxes",
+    "focus": "Economy & account stability: vault capacity, loot speed, heat capacity, backpacks, explosives access.",
+    "recommendation": "The consensus safest first faction — vault expansions compound the value of every later extraction.",
+    "upgrades": [
+      { "name": "CyberAcme Expansion", "rank": 1, "effect": "+8 rows of vault capacity for the rest of the current season" },
+      { "name": "CyberAcme Scavenger.exe", "rank": 1, "effect": "Loot Speed +5" },
+      { "name": "Cores", "rank": 1, "effect": "Unlocks Standard cores for Black Market purchase" },
+      { "name": "Explosives", "rank": 1, "effect": "Unlocks Frag Grenade purchases" },
+      { "name": "Gadgeteer", "rank": 1, "effect": "Unlocks Standard gadgets" },
+      { "name": "CyberAcme Lifeline.exe", "rank": 1, "effect": "Revive Speed +5" },
+      { "name": "CyberAcme Recovery.exe", "rank": 1, "effect": "Self-Repair Speed +5" },
+      { "name": "CyberAcme Expansion+", "rank": 2, "effect": "+8 more vault rows for the rest of the season" },
+      { "name": "CyberAcme Loot_Siphon.exe", "rank": 2, "effect": "Bonus tactical energy when opening an unlooted container" },
+      { "name": "Sponsorship+", "rank": 2, "effect": "Enhanced Sponsored Kit offerings" },
+      { "name": "Explosives+", "rank": 2, "effect": "Expands grenade options" },
+      { "name": "CyberAcme Heat_Sink.exe", "rank": 2, "effect": "Heat Capacity +5" },
+      { "name": "CyberAcme Emergency_Vent.exe", "rank": 2, "effect": "Heat Recovery Delay +20%" },
+      { "name": "CyberAcme Expansion++", "rank": 3, "effect": "+8 more vault rows for the rest of the season" },
+      { "name": "CyberAcme Prime_Amp.exe", "rank": 3, "effect": "Prime Ability Recharge Rate +10%" },
+      { "name": "CyberAcme Reinforce.exe", "rank": 3, "effect": "Hardware +10" },
+      { "name": "CyberAcme Agility_Matrix.exe", "rank": 3, "effect": "Agility +10" },
+      { "name": "Gift Horse", "rank": 3, "effect": "Unlocks new category of wares" },
+      { "name": "CyberAcme Optimization", "rank": 3, "effect": "Unlocks second offer from AI Iteration Group" }
+    ],
+    "sources": [
+      { "title": "Shacknews — All Faction upgrades", "url": "https://www.shacknews.com/article/144084/all-faction-upgrades-marathon" },
+      { "title": "TheGamer — Which Faction Should You Level In Marathon?", "url": "https://www.thegamer.com/marathon-faction-guide-upgrades-unlocks-contracts-rewards/" }
+    ],
+    "lastVerified": "2026-06-10"
+  },
+  {
+    "id": "nucaloric",
+    "slug": "nucaloric",
+    "type": "faction",
+    "name": "NuCaloric",
+    "color": "#3dff8b",
+    "icon": "HeartPulse",
+    "focus": "Survivability: health, shields, recovery, medical consumables, Self-Revive access.",
+    "recommendation": "Best early pick for solo players — cheaper, safer runs via Patch Kits, Shield Charges, and Enhanced Shields.",
+    "upgrades": [
+      { "name": "NuCaloric Lifeline.exe", "rank": 1, "effect": "Revive Speed +5" },
+      { "name": "Medic", "rank": 1, "effect": "Unlocks Enhanced medical consumables" },
+      { "name": "Carrier", "rank": 1, "effect": "Unlocks Enhanced backpacks" },
+      { "name": "NuCaloric Null_Hazard.exe", "rank": 1, "effect": "Hazard Tolerance +10" },
+      { "name": "Headspace", "rank": 2, "effect": "Unlocks Enhanced head implants" },
+      { "name": "NuCaloric Agility_Matrix.exe", "rank": 2, "effect": "Agility +5" },
+      { "name": "Medic_Stock", "rank": 2, "effect": "Increases medical consumable availability" },
+      { "name": "NuCaloric Recovery.exe", "rank": 2, "effect": "Self-Repair Speed +5" },
+      { "name": "Carrier_Stock", "rank": 2, "effect": "Enhanced backpack availability increase" },
+      { "name": "NuCaloric Reinforce.exe", "rank": 2, "effect": "Hardware +5" },
+      { "name": "Headspace+", "rank": 3, "effect": "Additional Enhanced head implants" },
+      { "name": "Headspace_Discount", "rank": 3, "effect": "Enhanced head implants cost reduction" },
+      { "name": "NuCaloric Agility_Matrix.exe II", "rank": 3, "effect": "Agility +5" },
+      { "name": "Medic_Discount", "rank": 3, "effect": "Medical consumable cost reduction" },
+      { "name": "NuCaloric Expansion", "rank": 3, "effect": "Vault Size +8 rows" },
+      { "name": "Carrier+", "rank": 3, "effect": "Unlocks Deluxe backpacks" },
+      { "name": "Carrier_Discount", "rank": 3, "effect": "Enhanced backpack cost reduction" },
+      { "name": "Volt Precision Rifle", "rank": 3, "effect": "Unlocks V95 Lookout" },
+      { "name": "NuCaloric Reinforce.exe II", "rank": 3, "effect": "Hardware +5" },
+      { "name": "NuCaloric Null_Hazard.exe II", "rank": 3, "effect": "Hazard Tolerance +15" },
+      { "name": "NuCaloric Optimization", "rank": 3, "effect": "Reviving a crew member grants a lingering heal over time" }
+    ],
+    "sources": [
+      { "title": "Shacknews — All Faction upgrades", "url": "https://www.shacknews.com/article/144084/all-faction-upgrades-marathon" }
+    ],
+    "lastVerified": "2026-06-10"
+  },
+  {
+    "id": "traxus",
+    "slug": "traxus",
+    "type": "faction",
+    "name": "Traxus",
+    "color": "#ff2d78",
+    "icon": "Crosshair",
+    "focus": "Weapons & mods: Armory access, precision weapons, advanced attachments, high-end loadouts.",
+    "recommendation": "The weapon faction — level it when your bankroll can support running purple+ kits consistently.",
+    "upgrades": [
+      { "name": "Traxus Tracker.exe", "rank": 1, "effect": "Ping Duration +1s" },
+      { "name": "Traxus Cutthroat.exe", "rank": 1, "effect": "Finisher Siphon +5" },
+      { "name": "Shielded", "rank": 1, "effect": "Unlocks Enhanced shield implants" },
+      { "name": "Traxus Heat_Sink.exe", "rank": 1, "effect": "Heat Capacity +5" },
+      { "name": "Tactical_AMP.exe", "rank": 2, "effect": "Tactical Ability Recharge Rate +10%" },
+      { "name": "Traxus Unfazed.exe", "rank": 2, "effect": "Firewall +5" },
+      { "name": "Traxus Cutthroat.exe II", "rank": 2, "effect": "Finisher Siphon +5" },
+      { "name": "Standtall", "rank": 2, "effect": "Unlocks Enhanced leg implants" },
+      { "name": "Shielded_Stocked", "rank": 2, "effect": "Enhanced shield implant availability" },
+      { "name": "Traxus Enhanced_Cooling.exe", "rank": 2, "effect": "Heat Recovery Rate +25%" },
+      { "name": "Tactical_AMP.exe II", "rank": 3, "effect": "Tactical Ability Recharge Rate +10%" },
+      { "name": "Traxus Unfazed.exe II", "rank": 3, "effect": "Firewall +5" },
+      { "name": "Standtall+", "rank": 3, "effect": "Additional Enhanced leg implants" },
+      { "name": "Standtall_Discount", "rank": 3, "effect": "Enhanced leg implant cost reduction" },
+      { "name": "Traxus TAD_Boost.exe", "rank": 3, "effect": "TAD Ping Area +2m" },
+      { "name": "Shielded_Discount", "rank": 3, "effect": "Enhanced shield implant cost reduction" },
+      { "name": "MIPS Sniper Rifle", "rank": 3, "effect": "Unlocks Longshot" },
+      { "name": "Lockbox_Locator.exe", "rank": 3, "effect": "Picking up a locked container key pings locked containers nearby" },
+      { "name": "Traxus Heat_Sink.exe II", "rank": 3, "effect": "Heat Capacity +10" },
+      { "name": "Armored", "rank": 3, "effect": "Unlocks Deluxe shield implants" },
+      { "name": "Traxus Expansion", "rank": 3, "effect": "Vault Size +8 rows" },
+      { "name": "Traxus Optimization", "rank": 3, "effect": "Automatically deploys a smoke cloud when activating an exfil site" }
+    ],
+    "sources": [
+      { "title": "Shacknews — All Faction upgrades", "url": "https://www.shacknews.com/article/144084/all-faction-upgrades-marathon" }
+    ],
+    "lastVerified": "2026-06-10"
+  },
+  {
+    "id": "mida",
+    "slug": "mida",
+    "type": "faction",
+    "name": "MIDA",
+    "color": "#ffe600",
+    "icon": "Bomb",
+    "focus": "Mobility, disruption, traps, explosives, and area control.",
+    "recommendation": "For players who reposition fast, hold chokepoints, and make enemy squads uncomfortable.",
+    "upgrades": [],
+    "upgradesNote": "Full upgrade tree not yet publicly documented (community datamining in progress). Specializations sourced; check back after guide sites finish cataloging MIDA's tree.",
+    "sources": [
+      { "title": "TheGamer — Which Faction Should You Level In Marathon?", "url": "https://www.thegamer.com/marathon-faction-guide-upgrades-unlocks-contracts-rewards/" },
+      { "title": "Shacknews — All Faction upgrades (MIDA pending)", "url": "https://www.shacknews.com/article/144084/all-faction-upgrades-marathon" }
+    ],
+    "lastVerified": "2026-06-10"
+  },
+  {
+    "id": "arachne",
+    "slug": "arachne",
+    "type": "faction",
+    "name": "Arachne",
+    "color": "#9d4dff",
+    "icon": "Swords",
+    "focus": "Aggressive PvP: combat stats, faster time-to-kill, weapon attachments for high-intensity gunfights.",
+    "recommendation": "The PvP faction — prioritize once you're confidently winning fights and want to snowball harder.",
+    "upgrades": [],
+    "upgradesNote": "Full upgrade tree not yet publicly documented. Specializations sourced; tree pending community cataloging.",
+    "sources": [
+      { "title": "TheGamer — Which Faction Should You Level In Marathon?", "url": "https://www.thegamer.com/marathon-faction-guide-upgrades-unlocks-contracts-rewards/" },
+      { "title": "Shacknews — All Faction upgrades (Arachne pending)", "url": "https://www.shacknews.com/article/144084/all-faction-upgrades-marathon" }
+    ],
+    "lastVerified": "2026-06-10"
+  },
+  {
+    "id": "sekiguchi",
+    "slug": "sekiguchi",
+    "type": "faction",
+    "name": "Sekiguchi Genetics",
+    "color": "#ff8a00",
+    "icon": "Cpu",
+    "focus": "Runner Shell specialization — the company behind biomata shells. Shell-specific core tracks make your chosen shell stronger, faster, more specialized.",
+    "recommendation": "Level once you've committed to a main shell; the shell-specific core tracks are its headline unlocks.",
+    "upgrades": [],
+    "upgradesNote": "Full upgrade tree not yet publicly documented. Specializations sourced; tree pending community cataloging.",
+    "sources": [
+      { "title": "TheGamer — Which Faction Should You Level In Marathon?", "url": "https://www.thegamer.com/marathon-faction-guide-upgrades-unlocks-contracts-rewards/" },
+      { "title": "Shacknews — All Faction upgrades (Sekiguchi pending)", "url": "https://www.shacknews.com/article/144084/all-faction-upgrades-marathon" }
+    ],
+    "lastVerified": "2026-06-10"
+  }
+]

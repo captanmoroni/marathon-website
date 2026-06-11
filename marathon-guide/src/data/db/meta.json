@@ -1,0 +1,21 @@
+{
+  "siteName": "Runner Terminal",
+  "tagline": "Marathon (2026) guide database — every fact sourced",
+  "baseUrl": "https://runner-terminal.example",
+  "currentSeason": {
+    "name": "Season 2 — Nightfall",
+    "started": "2026-06-02",
+    "headline": "Night Marsh · Sentinel shell · The Cradle",
+    "sources": [
+      { "title": "Bungie — Welcome to Season 2", "url": "https://www.bungie.net/7/en/News/article/welcome_season_2" }
+    ]
+  },
+  "stats": [
+    { "key": "heat", "label": "Heat Capacity", "desc": "How much weapon heat you can build before overheating. Raised by CyberAcme/Traxus Heat_Sink upgrades." },
+    { "key": "recovery", "label": "Recovery", "desc": "Shield/health recharge rate. Capped at +70% since Season 2 (was +100%)." },
+    { "key": "loot", "label": "Loot Speed", "desc": "Container interaction speed. CyberAcme Scavenger.exe grants +5." },
+    { "key": "agility", "label": "Agility", "desc": "Movement responsiveness. Raised by Agility_Matrix.exe upgrades." },
+    { "key": "hardware", "label": "Hardware", "desc": "Gadget/tech effectiveness stat. Raised by Reinforce.exe upgrades." },
+    { "key": "hazard", "label": "Hazard Tolerance", "desc": "Resistance to environmental damage (e.g., Dire Marsh toxins). NuCaloric specialty." }
+  ]
+}

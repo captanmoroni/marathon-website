@@ -1,0 +1,203 @@
+[
+  {
+    "id": "vandal",
+    "slug": "vandal",
+    "type": "runner",
+    "name": "Vandal",
+    "codename": "Glitch",
+    "role": "Combat Anarchist — aggressive mobility duelist",
+    "color": "#ff2d78",
+    "icon": "Zap",
+    "available": "Season 1 (launch)",
+    "summary": "Hyper-aggressive skirmisher built around heat management, supercharged slides, and double-jump repositioning. The pick for players who want to start fights on their own terms.",
+    "prime": { "name": "Amplify", "desc": "Overdrive state that reduces heat generation and increases movement speed and weapon dexterity for its duration." },
+    "tactical": { "name": "Disruptor", "desc": "Arm cannon that fires a disrupting projectile to break up entrenched enemies." },
+    "traits": ["Microjets — secondary jump for vertical repositioning", "Supercharged slides — extended, faster slide mechanics"],
+    "tips": [
+      "Amplify's reduced heat generation means you can run hot weapons harder mid-fight — pop it before committing, not after.",
+      "Microjets + slide chains let you cross open exfil sightlines that other shells have to route around.",
+      "You have no sustain in your kit: pair with a Triage in trios, or stack NuCaloric medical unlocks when soloing."
+    ],
+    "sources": [
+      { "title": "GameSpot — All Runner Shells And Their Abilities", "url": "https://www.gamespot.com/gallery/marathon-all-runner-shells-and-their-abilities/2900-7485/" },
+      { "title": "Shattered Vault — Runner Shells", "url": "https://shatteredvault.com/marathon/runner-shells/" }
+    ],
+    "lastVerified": "2026-06-10"
+  },
+  {
+    "id": "destroyer",
+    "slug": "destroyer",
+    "type": "runner",
+    "name": "Destroyer",
+    "codename": "Locus",
+    "role": "Combat Specialist — frontline pressure",
+    "color": "#ff8a00",
+    "icon": "Rocket",
+    "available": "Season 1 (launch)",
+    "summary": "Straightforward combat shell: shoulder-mounted ordnance, a deployable barricade, and thrusters. Strong in declared fights, weaker at disengaging.",
+    "prime": { "name": "Search & Destroy", "desc": "Shoulder-mounted pods fire heat-seeking missiles at locked targets." },
+    "tactical": { "name": "Riot Barricade", "desc": "Deployable energy shield that blocks incoming damage — instant hard cover for revives and plant/hack interactions." },
+    "traits": ["Thrusters — burst movement for positioning"],
+    "tips": [
+      "Missiles force enemies out of cover even when they don't kill — treat the Prime as a flushing tool for your crew.",
+      "Drop Riot Barricade perpendicular to a doorway to revive teammates through it safely.",
+      "UESC units and Cryo Archive lockdown bosses are vulnerable to missile volleys at openers."
+    ],
+    "sources": [
+      { "title": "GameSpot — All Runner Shells And Their Abilities", "url": "https://www.gamespot.com/gallery/marathon-all-runner-shells-and-their-abilities/2900-7485/" },
+      { "title": "Shattered Vault — Runner Shells", "url": "https://shatteredvault.com/marathon/runner-shells/" }
+    ],
+    "lastVerified": "2026-06-10"
+  },
+  {
+    "id": "recon",
+    "slug": "recon",
+    "type": "runner",
+    "name": "Recon",
+    "codename": "Blackbird",
+    "role": "Intel Specialist — information warfare",
+    "color": "#00e5ff",
+    "icon": "Radar",
+    "available": "Season 1 (launch)",
+    "summary": "Wins fights before they start by knowing where everyone is. Sonar pulses, tracker drones, and warning pings make Recon the backbone of cautious, high-value crews.",
+    "prime": { "name": "Echo Pulse", "desc": "Emits sonar pulses that detect and reveal nearby hostiles." },
+    "tactical": { "name": "Tracker Drones", "desc": "Deployable drones that explode in proximity to enemies, causing overheating." },
+    "traits": ["Ping warnings when enemies are detected nearby", "Enemies that break your shield leave holographic footstep trails"],
+    "tips": [
+      "Echo Pulse before any locked-room or contract interaction — third-partying crews show up exactly then.",
+      "Tracker drones double as area denial on exfil consoles during the countdown.",
+      "Footstep trails after a shield break turn a lost duel into intel for your crew — call the direction immediately."
+    ],
+    "sources": [
+      { "title": "GameSpot — All Runner Shells And Their Abilities", "url": "https://www.gamespot.com/gallery/marathon-all-runner-shells-and-their-abilities/2900-7485/" },
+      { "title": "Shattered Vault — Runner Shells", "url": "https://shatteredvault.com/marathon/runner-shells/" }
+    ],
+    "lastVerified": "2026-06-10"
+  },
+  {
+    "id": "assassin",
+    "slug": "assassin",
+    "type": "runner",
+    "name": "Assassin",
+    "codename": "Void",
+    "role": "Shadow Agent — stealth flanker",
+    "color": "#9d4dff",
+    "icon": "EyeOff",
+    "available": "Season 1 (launch)",
+    "summary": "The hardest Runner to track. Smoke fields plus active camouflage — and a passive that re-cloaks you inside smoke — make Assassin the premier flanker and escape artist.",
+    "prime": { "name": "Smoke Field", "desc": "Deploys a smoke disc creating a concealing field." },
+    "tactical": { "name": "Active Camouflage", "desc": "Cloaks the Runner, breaking visual tracking." },
+    "traits": ["Camo automatically activates when entering smoke", "Shadow Dive — airborne slam that negates fall damage"],
+    "tips": [
+      "Smoke + auto-camo is your engage AND your disengage — hold the tactical for whichever you didn't use.",
+      "Shadow Dive from high ground straight onto loot lets you skip whole contested staircases.",
+      "Camo shimmers when you sprint; walk the last 10 meters of a flank."
+    ],
+    "sources": [
+      { "title": "GamesRadar — Marathon characters and Runner Shell tier list", "url": "https://www.gamesradar.com/games/fps/marathon-characters-runners-shells/" },
+      { "title": "Shattered Vault — Runner Shells", "url": "https://shatteredvault.com/marathon/runner-shells/" }
+    ],
+    "lastVerified": "2026-06-10"
+  },
+  {
+    "id": "triage",
+    "slug": "triage",
+    "type": "runner",
+    "name": "Triage",
+    "codename": "Aux",
+    "role": "Field Medic — crew sustain",
+    "color": "#3dff8b",
+    "icon": "HeartPulse",
+    "available": "Season 1 (launch)",
+    "summary": "The dedicated support shell. Ranged revives, med drones, and consumable sharing keep trios running deep into a raid economy where every death costs gear.",
+    "prime": { "name": "Remote Revive / EMP", "desc": "Revive a downed ally at range, or use the charge offensively to EMP hostiles." },
+    "tactical": { "name": "Med Drones", "desc": "Drones that regenerate ally health and shields." },
+    "traits": ["Shareware — share consumables with crewmates", "Weapon performance boost trait"],
+    "tips": [
+      "The Prime is a genuine choice each charge: a ranged revive mid-fight is usually worth more than the EMP — but EMP wins ability-dependent matchups like Destroyer barricade pushes.",
+      "Med drones pre-deployed at an exfil point turn the extraction timer into a healing window.",
+      "In duos/trios, Shareware means you carry the patch kits and distribute on demand — centralize the med economy."
+    ],
+    "sources": [
+      { "title": "GameSpot — All Runner Shells And Their Abilities", "url": "https://www.gamespot.com/gallery/marathon-all-runner-shells-and-their-abilities/2900-7485/" },
+      { "title": "Shattered Vault — Runner Shells", "url": "https://shatteredvault.com/marathon/runner-shells/" }
+    ],
+    "lastVerified": "2026-06-10"
+  },
+  {
+    "id": "thief",
+    "slug": "thief",
+    "type": "runner",
+    "name": "Thief",
+    "codename": "Thief",
+    "role": "Covert Acquisition — loot specialist",
+    "color": "#ffe600",
+    "icon": "Backpack",
+    "available": "Season 1 (launch)",
+    "summary": "Built to get rich: a grapple for verticality, an X-ray visor that highlights the best loot and hostiles, and a drone that can literally steal from other Runners.",
+    "prime": { "name": "Pickpocket Drone", "desc": "Drone that locates enemies and can steal loot from other Runners." },
+    "tactical": { "name": "Grapple Hook", "desc": "Rapidly gain height or cross gaps." },
+    "traits": ["X-ray visor — highlights hostiles and high-value loot", "Improved weapon handling scaled by backpack contents"],
+    "tips": [
+      "Grapple routes over the Pinwheel (Outpost) and Cryo Archive catwalks skip clearance-gated corridors entirely.",
+      "The handling-scales-with-loot trait means Thief gets stronger the greedier you play — lean into it, then leave early.",
+      "Pickpocket Drone on a camping squad at exfil is the safest robbery in the game."
+    ],
+    "sources": [
+      { "title": "GamesRadar — Marathon characters and Runner Shell tier list", "url": "https://www.gamesradar.com/games/fps/marathon-characters-runners-shells/" },
+      { "title": "Shattered Vault — Runner Shells", "url": "https://shatteredvault.com/marathon/runner-shells/" }
+    ],
+    "lastVerified": "2026-06-10"
+  },
+  {
+    "id": "rook",
+    "slug": "rook",
+    "type": "runner",
+    "name": "Rook",
+    "codename": "Prototype Shell",
+    "role": "Scavenger Mode — zero-risk deployment",
+    "color": "#94a3b8",
+    "icon": "Skull",
+    "available": "Season 1 (launch)",
+    "summary": "Not a class so much as a mode: drop solo into an ongoing match with no loadout and nothing to lose. Pure evasion, recovery, and bankroll rebuilding.",
+    "prime": { "name": "—", "desc": "Rook deploys without a standard ability loadout." },
+    "tactical": { "name": "—", "desc": "Rook deploys without a standard ability loadout." },
+    "traits": ["Risks nothing on death — no stash loss", "Can stabilize items with Matter Fixatives", "Blends in with AI bot units"],
+    "restrictions": "Cannot progress faction contracts while deployed as Rook.",
+    "tips": [
+      "Rook is the correct answer to a wiped bankroll — rebuild credits with zero downside, then switch back.",
+      "Blending with AI bots is real concealment: stop sprinting and walk patrol-like paths near UESC groups.",
+      "Because faction contracts don't progress, never run Rook when you're rep-capped on time, not credits."
+    ],
+    "sources": [
+      { "title": "Wikipedia — Marathon (2026 video game)", "url": "https://en.wikipedia.org/wiki/Marathon_(2026_video_game)" },
+      { "title": "Shattered Vault — Runner Shells", "url": "https://shatteredvault.com/marathon/runner-shells/" }
+    ],
+    "lastVerified": "2026-06-10"
+  },
+  {
+    "id": "sentinel",
+    "slug": "sentinel",
+    "type": "runner",
+    "name": "Sentinel",
+    "codename": "Rampart",
+    "role": "Defensive Specialist — area control (NEW in Season 2)",
+    "color": "#00b8d4",
+    "icon": "Shield",
+    "available": "Season 2 \"Nightfall\" (2026-06-02)",
+    "summary": "Season 2's new shell. Shapes fights before enemies commit: an anti-ordnance platform, immobilizing snare mines, and short-range motion intel make Sentinel the king of holding rooms and protecting exfils.",
+    "prime": { "name": "Defender System", "desc": "Deploys an automated platform that harmlessly neutralizes incoming grenades and missiles, and boosts weapon stability and reload speed for nearby crewmates." },
+    "tactical": { "name": "Snare Mine", "desc": "Proximity-triggered mine that spreads an immobilizing effect." },
+    "traits": ["Prey Tracker — short-range motion detection revealing moving enemies on radar", "Castle Doctrine — faster SMG/pistol/shotgun readiness based on nearby hostiles; taking splash damage triggers temporary stat buffs"],
+    "tips": [
+      "Defender System hard-counters Destroyer missiles and grenade spam — drop it on the exfil pad during the countdown.",
+      "Snare Mines on the two most likely entry doors, then fight from the third angle. You choose where the fight happens.",
+      "Castle Doctrine favors CQC secondaries: keep a shotgun or SMG even on long-range loadouts."
+    ],
+    "sources": [
+      { "title": "TheSixthAxis — Marathon Season 2 patch notes", "url": "https://www.thesixthaxis.com/2026/06/02/marathon-season-2-has-begun-check-out-the-patch-notes/" },
+      { "title": "Shattered Vault — Runner Shells", "url": "https://shatteredvault.com/marathon/runner-shells/" }
+    ],
+    "lastVerified": "2026-06-10"
+  }
+]

@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme {
+  --color-void: #050508;
+  --color-panel: #0b0b12;
+  --color-edge: #1c1c2b;
+  --color-neon-pink: #ff2d78;
+  --color-neon-cyan: #00e5ff;
+  --color-neon-yellow: #ffe600;
+  --color-neon-green: #3dff8b;
+  --color-neon-violet: #9d4dff;
+  --color-neon-orange: #ff8a00;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+body {
+  background: var(--color-void);
+  color: #e2e8f0;
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #0b0b12; }
+::-webkit-scrollbar-thumb { background: #1c1c2b; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #00e5ff55; }
+
+.scanline {
+  background-image: repeating-linear-gradient(
+    0deg, transparent, transparent 3px,
+    rgba(0, 229, 255, 0.025) 3px, rgba(0, 229, 255, 0.025) 4px);
+}
+.glow-pink { text-shadow: 0 0 14px rgba(255, 45, 120, 0.65); }
+.glow-cyan { text-shadow: 0 0 14px rgba(0, 229, 255, 0.65); }
+
+input[type="range"] {
+  appearance: none; height: 6px; border-radius: 3px; background: #1c1c2b; outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none; width: 18px; height: 18px; border-radius: 50%;
+  background: #00e5ff; box-shadow: 0 0 10px #00e5ff; cursor: pointer;
+}
+mark { background: rgba(255, 230, 0, 0.25); color: #ffe600; border-radius: 2px; padding: 0 1px; }
+
+/* Visible keyboard focus everywhere */
+:focus-visible {
+  outline: 2px solid #00e5ff;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Respect reduced-motion: kill pulses, SVG animations, and transitions */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,128 @@
+[
+  {
+    "id": "getting-started",
+    "slug": "getting-started",
+    "type": "guide",
+    "category": "Basics",
+    "title": "Getting Started: The Extraction Loop",
+    "summary": "How a Marathon run works: deploy, loot, exfil — and what you actually lose when you die.",
+    "body": [
+      "Every match is the same wager: deploy into a shared zone (solo or trio; duos rotate on a daily map since Season 2), gather loot, and exfiltrate before other Runners or the environment kill you. Items you carry are permanently lost if you fail to extract; everything you bring out is yours to use, sell, or stash.",
+      "Seasons last three months and wipe nearly everything at reset — except faction advancement, Codex entries, and cosmetics. That means gear is a seasonal resource: spend it, don't hoard it.",
+      "All maps, shells, and gameplay items for the current season are accessible to every player — monetization is cosmetic only (Silk from season progression, Lux as premium currency).",
+      "Start on Perimeter (15 players, 5 teams, open terrain), graduate to Dire Marsh for contracts and materials, and treat Outpost (Runner Level 12 gate) and the Cryo Archive as goals, not starting points."
+    ],
+    "related": ["map:perimeter", "guide:economy-priorities", "runner:rook"],
+    "sources": [
+      { "title": "Wikipedia — Marathon (2026 video game)", "url": "https://en.wikipedia.org/wiki/Marathon_(2026_video_game)" }
+    ],
+    "lastVerified": "2026-06-10"
+  },
+  {
+    "id": "economy-priorities",
+    "slug": "economy-priorities",
+    "type": "guide",
+    "category": "Economy",
+    "title": "Economy Priorities: What to Unlock First",
+    "summary": "A sourced ordering of early faction investments — vault rows first, sustain second, guns third.",
+    "body": [
+      "CyberAcme first. It's widely considered the safest starting faction: its Expansion upgrades (+8 vault rows at Ranks 1, 2, and 3) compound the value of every later extraction, and Scavenger.exe (+5 Loot Speed) accelerates every single run.",
+      "NuCaloric second — or first if you solo. Enhanced medical consumables, Revive Speed, Hazard Tolerance, and eventually Self-Revive access make runs cheaper to survive, which is the same as making them more profitable.",
+      "Traxus when your bankroll is stable: it's the weapons-and-mods faction (Enhanced/Deluxe shield implants, the Longshot MIPS sniper at Rank 3, heat upgrades). Great power, but it assumes you live long enough to use it.",
+      "Season 2 buffed faction progression — early season level-ups grant increased credits, so the early ranks come noticeably faster than they did in Season 1.",
+      "One warning: deploying as Rook progresses no faction contracts. Rook rebuilds your credit floor after a wipe, but it does not advance this plan."
+    ],
+    "related": ["faction:cyberacme", "faction:nucaloric", "faction:traxus", "runner:rook"],
+    "sources": [
+      { "title": "TheGamer — Which Faction Should You Level In Marathon?", "url": "https://www.thegamer.com/marathon-faction-guide-upgrades-unlocks-contracts-rewards/" },
+      { "title": "Shacknews — All Faction upgrades", "url": "https://www.shacknews.com/article/144084/all-faction-upgrades-marathon" },
+      { "title": "TheSixthAxis — Season 2 patch notes", "url": "https://www.thesixthaxis.com/2026/06/02/marathon-season-2-has-begun-check-out-the-patch-notes/" }
+    ],
+    "lastVerified": "2026-06-10"
+  },
+  {
+    "id": "cryo-archive-endgame",
+    "slug": "cryo-archive-endgame",
+    "type": "guide",
+    "category": "Endgame",
+    "title": "Cryo Archive: The Complete Endgame Guide",
+    "summary": "Clearance routing, the 30-minute clock, lockdown traps, the Compiler, and how to actually get out.",
+    "body": [
+      "Layout: the Archive is a giant wheel. Control and Panopticon sit at the hub; six wings — Cargo, Steerage, Biostock, Preservation, Revival, and Index — spin out from the center with interconnecting pathways. You spawn at the outer end of a wing and have 30 minutes.",
+      "Security Clearance is the whole game here: you need Clearance Level 3 to extract — the equivalent of 18 Security Tags. Tags drop from commanders (1 point each); hacking a Security Terminal is worth 3 points. Distribute tags across your team: a dead teammate's tags stop counting toward the crew total.",
+      "Lockdown traps: laser tripwires seal the room with red barriers. To escape, kill the UESC boss that spawns or hack a control panel. The Compiler is a boss unique to the Cryo Archive — treat any tripwire corridor as a potential boss arena.",
+      "Extraction: Exfil Stations are neither common nor obvious; a Scanner is the reliable way to find them, and they tend to sit near or within the central Control area. Budget the last third of your timer for the push to center.",
+      "Recommended crew: Sentinel (Defender System covers the exfil hack), Recon or Thief (Scanner/X-ray economy for terminals and stations), plus Destroyer or Triage depending on whether you fear the Compiler or attrition more."
+    ],
+    "related": ["map:cryo-archive", "runner:sentinel", "runner:recon", "runner:thief"],
+    "sources": [
+      { "title": "GamesRadar — Cryo Archive basic guide and tips", "url": "https://www.gamesradar.com/games/fps/marathon-cryo-archive-guide/" },
+      { "title": "PC Gamer — How to increase Security Clearance", "url": "https://www.pcgamer.com/games/fps/marathon-security-clearance-level-cryo-archive/" },
+      { "title": "GamesRadar — Cryo Archive exfil walkthrough", "url": "https://www.gamesradar.com/games/fps/marathon-cryo-how-to-extract-exfil/" }
+    ],
+    "lastVerified": "2026-06-10"
+  },
+  {
+    "id": "season-2-overview",
+    "slug": "season-2-overview",
+    "type": "guide",
+    "category": "Seasonal",
+    "title": "Season 2 \"Nightfall\": Everything That Changed",
+    "summary": "Night Marsh, the Sentinel shell, The Cradle stat system, two new grenades, and the recovery nerf.",
+    "body": [
+      "Season 2 \"Nightfall\" began June 2, 2026, with the standard seasonal wipe (faction advancement, Codex, and cosmetics persist).",
+      "Night Marsh: Dire Marsh plunged into darkness with new mechanics, new combatants, and new locations — a horror-leaning variant where intel abilities (Echo Pulse, Prey Tracker) spike in value.",
+      "Sentinel: the new defensive shell. Defender System (Prime) deploys a platform that harmlessly neutralizes incoming grenades/missiles and boosts nearby crew weapon stability and reload speed; Snare Mine (Tactical) immobilizes; Prey Tracker gives short-range motion radar; Castle Doctrine speeds up SMG/pistol/shotgun readiness based on nearby hostiles.",
+      "The Cradle: direct customization of baseline Runner shell stats, replacing Season 1's material-dependent approach to stat growth.",
+      "Balance: recovery stat caps were cut from 100% to 70% maximum recharge-rate increase — sustain builds lost real power. Two new grenades arrived: Frost Mine (spreads debuffs) and Vector Grenade (reveals enemy positions). Faction progression got faster, and Sponsored Kit rarities unlock sooner with matching gear tiers.",
+      "Duos: a rotating daily map now supports two-player crews."
+    ],
+    "related": ["runner:sentinel", "map:night-marsh", "guide:economy-priorities"],
+    "sources": [
+      { "title": "TheSixthAxis — Season 2 patch notes", "url": "https://www.thesixthaxis.com/2026/06/02/marathon-season-2-has-begun-check-out-the-patch-notes/" },
+      { "title": "Bungie — Welcome to Season 2", "url": "https://www.bungie.net/7/en/News/article/welcome_season_2" },
+      { "title": "Wikipedia — Marathon (2026 video game)", "url": "https://en.wikipedia.org/wiki/Marathon_(2026_video_game)" }
+    ],
+    "lastVerified": "2026-06-10"
+  },
+  {
+    "id": "ranked-mode",
+    "slug": "ranked-mode",
+    "type": "guide",
+    "category": "Endgame",
+    "title": "Ranked Mode: Ranks, Holotags, and Loadout Floors",
+    "summary": "How Marathon's ranked beta works — six ranks, minimum-value loadouts, and Holotag score targets.",
+    "body": [
+      "Ranked launched in beta on March 21, 2026, shortly after the Cryo Archive opened.",
+      "Structure: six ranks — Bronze, Silver, Gold, Platinum and up to Pinnacle — with three divisions each. Platinum+ players access more dangerous zones with better loot.",
+      "Two rules change how you kit: your loadout must meet a minimum credit value (no naked ranked runs), and a Holotag is required to set the score targets you advance against.",
+      "Practical consequence: ranked is an economy test as much as an aim test. If your vault can't sustain repeated minimum-value loadouts, fix your CyberAcme/NuCaloric foundation first."
+    ],
+    "related": ["guide:economy-priorities", "guide:cryo-archive-endgame"],
+    "sources": [
+      { "title": "Wikipedia — Marathon (2026 video game)", "url": "https://en.wikipedia.org/wiki/Marathon_(2026_video_game)" }
+    ],
+    "lastVerified": "2026-06-10"
+  },
+  {
+    "id": "shell-tier-list",
+    "slug": "shell-tier-list",
+    "type": "guide",
+    "category": "Meta",
+    "title": "Runner Shell Tier List (Season 2) — Editorial",
+    "summary": "Our opinionated read of the S2 meta. Clearly labeled opinion, derived from sourced kit facts.",
+    "editorial": true,
+    "body": [
+      "EDITORIAL NOTE: tier placements are this site's opinion based on sourced kit descriptions and the S2 balance changes. They are not official data, and reasonable players disagree.",
+      "S — Sentinel: Defender System neutralizing all incoming ordnance while buffing crew handling is the strongest single teamplay effect in the game right now, and the recovery cap nerf (100%→70%) hurt the sustain styles that used to contest it. Prey Tracker also scales absurdly well in Night Marsh's darkness.",
+      "A — Recon: information has always been Marathon's strongest currency, and Night Marsh doubled its price. | Triage: ranged revives remain the best answer to the genre's core failure state, though the recovery cap trimmed its ceiling. | Thief: the loot-handling trait plus grapple makes it the best solo economy engine.",
+      "B — Vandal: excellent hands, no utility for a trio. | Destroyer: missiles into a Defender System do nothing — its stock fell exactly as much as Sentinel's rose. | Assassin: still the best 1v1 escape kit; struggles to convert stealth into crew value.",
+      "Mode-graded — Rook: not on the ladder; it's a zero-risk economy mode, and the correct pick when the answer to 'what do I lose if this goes wrong?' needs to be 'nothing.'"
+    ],
+    "related": ["runner:sentinel", "runner:recon", "runner:triage", "runner:thief", "guide:season-2-overview"],
+    "sources": [
+      { "title": "Kit facts: GameSpot / Shattered Vault / TheSixthAxis (see runner pages)", "url": "https://www.gamespot.com/gallery/marathon-all-runner-shells-and-their-abilities/2900-7485/" }
+    ],
+    "lastVerified": "2026-06-10"
+  }
+]

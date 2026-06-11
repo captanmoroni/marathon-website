@@ -1,0 +1,137 @@
+[
+  {
+    "id": "perimeter",
+    "slug": "perimeter",
+    "type": "map",
+    "name": "Perimeter",
+    "color": "#3dff8b",
+    "difficulty": "Beginner",
+    "players": "15 players · 5 teams",
+    "access": "Available from start",
+    "summary": "The starter zone: wide exterior terrain and industrial infrastructure with open navigation and beginner-friendly encounters. Learn the loop here before the marshes punish you.",
+    "pois": [
+      { "id": "command-hub", "name": "Command Hub", "x": 50, "y": 38, "kind": "loot", "note": "Highest loot density on the map. High risk — experienced squads rotate here first." },
+      { "id": "data-wall", "name": "Data Wall", "x": 24, "y": 30, "kind": "poi", "note": "Industrial POI on the western approach." },
+      { "id": "the-hauler", "name": "The Hauler", "x": 68, "y": 62, "kind": "poi", "note": "Wrecked transport — mid-tier containers, decent early-route stop." },
+      { "id": "twin-relays", "name": "Twin Relays", "x": 36, "y": 70, "kind": "poi", "note": "Paired relay structures; good contract objective coverage." },
+      { "id": "exfil-a", "name": "Exfil window (rotating)", "x": 84, "y": 24, "kind": "exfil", "note": "Extraction points open during limited windows — reach them before the timer closes; expect convergence." }
+    ],
+    "tips": [
+      "Exfil windows are timed and contested: plan your route to arrive early, not exactly on time.",
+      "Command Hub money is real but so is the third-party traffic — hit it only with a full crew or skip it solo."
+    ],
+    "sources": [
+      { "title": "Epiccarry — Marathon Maps Guide 2026", "url": "https://epiccarry.com/blogs/marathon-maps-guide-2026/" },
+      { "title": "Carrylord — Marathon Map Guide", "url": "https://carrylord.com/marathon/map-guide/" }
+    ],
+    "lastVerified": "2026-06-10"
+  },
+  {
+    "id": "dire-marsh",
+    "slug": "dire-marsh",
+    "type": "map",
+    "name": "Dire Marsh",
+    "color": "#ffe600",
+    "difficulty": "Intermediate",
+    "players": "18 players · 6 teams",
+    "access": "Available from start",
+    "summary": "Dense swamp with toxic hazards and frequent PvP. The best zone for crafting materials, research data, and faction contracts — ideal for mid-level progression.",
+    "pois": [
+      { "id": "ai-uplink", "name": "AI Uplink", "x": 56, "y": 32, "kind": "loot", "note": "Some of the best loot on the map. Locked Room to the east connects to the main complex." },
+      { "id": "locked-room", "name": "Locked Room (East)", "x": 70, "y": 36, "kind": "locked", "note": "Key-gated room connecting to the main complex." },
+      { "id": "secured-resources", "name": "Secured Resources", "x": 48, "y": 56, "kind": "loot", "note": "Inside the central outpost — crafting material concentration." },
+      { "id": "toxic-bog", "name": "Toxic bogs (hazard)", "x": 26, "y": 64, "kind": "hazard", "note": "Environmental damage zones — Hazard Tolerance (NuCaloric) reduces the pain." },
+      { "id": "exfil-dm", "name": "Exfil window (rotating)", "x": 82, "y": 70, "kind": "exfil", "note": "Timed extraction; marsh sightlines make the final approach dangerous." }
+    ],
+    "tips": [
+      "This is the contract zone: stack faction contracts that share POIs before deploying.",
+      "Toxic hazards drain you slowly — carry one more patch kit than you think you need."
+    ],
+    "sources": [
+      { "title": "Epiccarry — Marathon Maps Guide 2026", "url": "https://epiccarry.com/blogs/marathon-maps-guide-2026/" },
+      { "title": "Carrylord — Marathon Map Guide", "url": "https://carrylord.com/marathon/map-guide/" }
+    ],
+    "lastVerified": "2026-06-10"
+  },
+  {
+    "id": "outpost",
+    "slug": "outpost",
+    "type": "map",
+    "name": "Outpost",
+    "color": "#ff2d78",
+    "difficulty": "Advanced",
+    "players": "12 players",
+    "access": "Requires Runner Level 12",
+    "summary": "A UESC military facility built around the Pinwheel — a vertical combat structure where squads fight over high-tier loot and clearance-controlled areas.",
+    "pois": [
+      { "id": "pinwheel", "name": "The Pinwheel", "x": 50, "y": 46, "kind": "loot", "note": "Central vertical combat zone; high-tier loot and clearance-controlled areas. The whole map rotates around it." },
+      { "id": "clearance-areas", "name": "Clearance-controlled wings", "x": 64, "y": 30, "kind": "locked", "note": "Gated rooms requiring clearance — bring keys/clearance or a Thief grapple line." },
+      { "id": "uesc-garrison", "name": "UESC garrison posts", "x": 30, "y": 34, "kind": "hazard", "note": "Heavier UESC presence than the marsh zones." },
+      { "id": "exfil-op", "name": "Exfil window (rotating)", "x": 78, "y": 66, "kind": "exfil", "note": "Fewer squads (12 players) but they're all good. Exfil fights here are decisive." }
+    ],
+    "tips": [
+      "Verticality wins the Pinwheel: Thief's grapple and Vandal's Microjets are disproportionately strong here.",
+      "12-player lobbies mean quieter rotations — sound discipline matters more, not less."
+    ],
+    "sources": [
+      { "title": "Epiccarry — Marathon Maps Guide 2026", "url": "https://epiccarry.com/blogs/marathon-maps-guide-2026/" },
+      { "title": "Carrylord — Marathon Map Guide", "url": "https://carrylord.com/marathon/map-guide/" }
+    ],
+    "lastVerified": "2026-06-10"
+  },
+  {
+    "id": "night-marsh",
+    "slug": "night-marsh",
+    "type": "map",
+    "name": "Night Marsh",
+    "color": "#9d4dff",
+    "difficulty": "Advanced (Season 2)",
+    "players": "Dire Marsh variant",
+    "access": "Season 2 \"Nightfall\" (2026-06-02)",
+    "summary": "Season 2's headline zone: Dire Marsh plunged into darkness with new mechanics, new combatants, and new locations — a horror-tinged take on the marsh.",
+    "pois": [
+      { "id": "nm-dark", "name": "Darkness (global)", "x": 50, "y": 20, "kind": "hazard", "note": "Low visibility changes every engagement rule from the day marsh." },
+      { "id": "nm-uplink", "name": "AI Uplink (night)", "x": 56, "y": 32, "kind": "loot", "note": "Same anchor POI as Dire Marsh — contested in the dark." },
+      { "id": "nm-new", "name": "New locations", "x": 34, "y": 58, "kind": "poi", "note": "Season 2 adds locations to explore; community mapping in progress." },
+      { "id": "exfil-nm", "name": "Exfil window (rotating)", "x": 80, "y": 68, "kind": "exfil", "note": "Light discipline at exfil is everything — muzzle flash is a beacon." }
+    ],
+    "tips": [
+      "Recon's Echo Pulse and Sentinel's Prey Tracker substitute for the eyes the darkness takes away.",
+      "New combatant types patrol at night — assume any silhouette is hostile until pinged."
+    ],
+    "sources": [
+      { "title": "TheSixthAxis — Marathon Season 2 patch notes", "url": "https://www.thesixthaxis.com/2026/06/02/marathon-season-2-has-begun-check-out-the-patch-notes/" },
+      { "title": "Wikipedia — Marathon (2026 video game)", "url": "https://en.wikipedia.org/wiki/Marathon_(2026_video_game)" }
+    ],
+    "lastVerified": "2026-06-10"
+  },
+  {
+    "id": "cryo-archive",
+    "slug": "cryo-archive",
+    "type": "map",
+    "name": "Cryo Archive",
+    "color": "#00e5ff",
+    "difficulty": "Endgame",
+    "players": "30-minute timed runs",
+    "access": "Endgame zone (unlocked via community ARG, 2026-03-20)",
+    "summary": "The endgame zone: a hub-and-spoke 'bicycle wheel' layout with Control and Panopticon at the center and six wings radiating out. Security Clearance Level 3 is required to exfil.",
+    "pois": [
+      { "id": "control", "name": "Control", "x": 44, "y": 50, "kind": "loot", "note": "Central POI. Exfil Stations tend to be found near and within Control." },
+      { "id": "panopticon", "name": "Panopticon", "x": 56, "y": 50, "kind": "loot", "note": "Second central POI sharing the hub." },
+      { "id": "cargo", "name": "Cargo (wing)", "x": 50, "y": 14, "kind": "poi", "note": "Spawn wing — runs start at the outer end of a wing." },
+      { "id": "steerage", "name": "Steerage (wing)", "x": 82, "y": 30, "kind": "poi", "note": "Spawn wing." },
+      { "id": "biostock", "name": "Biostock (wing)", "x": 84, "y": 68, "kind": "poi", "note": "Spawn wing." },
+      { "id": "preservation", "name": "Preservation (wing)", "x": 50, "y": 86, "kind": "poi", "note": "Spawn wing." },
+      { "id": "revival", "name": "Revival (wing)", "x": 16, "y": 68, "kind": "poi", "note": "Spawn wing." },
+      { "id": "index", "name": "Index (wing)", "x": 14, "y": 30, "kind": "poi", "note": "Spawn wing." }
+    ],
+    "tips": [
+      "See the full endgame guide for clearance routing, the Compiler, and lockdown traps."
+    ],
+    "sources": [
+      { "title": "GamesRadar — Cryo Archive basic guide and tips", "url": "https://www.gamesradar.com/games/fps/marathon-cryo-archive-guide/" },
+      { "title": "PC Gamer — Cryo Archive Security Clearance", "url": "https://www.pcgamer.com/games/fps/marathon-security-clearance-level-cryo-archive/" }
+    ],
+    "lastVerified": "2026-06-10"
+  }
+]
