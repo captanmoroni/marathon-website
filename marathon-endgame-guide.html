@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RUNNER.DB — Marathon (2026) Endgame Guide Database</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/lucide@0.294.0/dist/umd/lucide.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          void: '#050508',
+          panel: '#0b0b12',
+          edge: '#1c1c2b',
+          neon: { pink: '#ff2d78', cyan: '#00e5ff', yellow: '#ffe600', green: '#3dff8b', violet: '#9d4dff' },
+        },
+        fontFamily: { mono: ['"JetBrains Mono"','ui-monospace','monospace'] },
+      }
+    }
+  }
+</script>
+<style>
+  body { background:#050508; }
+  ::-webkit-scrollbar { width:8px; height:8px; }
+  ::-webkit-scrollbar-track { background:#0b0b12; }
+  ::-webkit-scrollbar-thumb { background:#1c1c2b; border-radius:4px; }
+  ::-webkit-scrollbar-thumb:hover { background:#00e5ff55; }
+  .scanline { background-image: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,229,255,.025) 3px, rgba(0,229,255,.025) 4px); }
+  .glow-pink { text-shadow: 0 0 14px rgba(255,45,120,.65); }
+  .glow-cyan { text-shadow: 0 0 14px rgba(0,229,255,.65); }
+  input[type=range] { -webkit-appearance:none; height:6px; border-radius:3px; background:#1c1c2b; outline:none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:18px; height:18px; border-radius:50%; background:#00e5ff; box-shadow:0 0 10px #00e5ff; cursor:pointer; }
+</style>
+</head>
+<body class="text-slate-200 antialiased">
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useMemo, useEffect } = React;
+// React wrapper around the vanilla lucide UMD icon data
+const camelAttrs = (attrs) => Object.fromEntries(
+  Object.entries(attrs || {}).map(([k, v]) => [k.replace(/-([a-z])/g, (_, c) => c.toUpperCase()), v])
+);
+const renderNode = ([tag, attrs, children], key) =>
+  React.createElement(tag, { key, ...camelAttrs(attrs) }, (children || []).map(renderNode));
+const makeIcon = (name) => {
+  // lucide UMD icon format: ["svg", attrs, [[tag, attrs, children?], ...]]
+  const data = lucide.icons[name] || ['svg', {}, []];
+  const children = data[2] || [];
+  const Icon = ({ size = 16, strokeWidth = 2, className, style }) =>
+    React.createElement('svg', {
+      width: size, height: size, viewBox: '0 0 24 24', fill: 'none',
+      stroke: 'currentColor', strokeWidth, strokeLinecap: 'round', strokeLinejoin: 'round',
+      className, style,
+    }, children.map(renderNode));
+  return Icon;
+};
+const [
+  Zap, Shield, Skull, Crosshair, Cpu, Activity, MapIcon, Database, Search,
+  ChevronRight, ChevronDown, Lock, Unlock, CheckCircle2, Circle, AlertTriangle,
+  Flame, Snowflake, Radar, Backpack, Syringe, Bomb, Swords, Timer, Radio,
+  TrendingUp, Coins, Target, Wrench, Eye, Footprints, HeartPulse, Boxes,
+  Hexagon, Layers, Gauge, KeyRound, Wifi, Trophy, Newspaper, ArrowUpRight, Sliders
+] = [
+  'Zap','Shield','Skull','Crosshair','Cpu','Activity','Map','Database','Search',
+  'ChevronRight','ChevronDown','Lock','Unlock','CheckCircle2','Circle','AlertTriangle',
+  'Flame','Snowflake','Radar','Backpack','Syringe','Bomb','Swords','Timer','Radio',
+  'TrendingUp','Coins','Target','Wrench','Eye','Footprints','HeartPulse','Boxes',
+  'Hexagon','Layers','Gauge','KeyRound','Wifi','Trophy','Newspaper','ArrowUpRight','Sliders'
+].map(makeIcon);
+
+/* ============================ DATA ============================ */
+
+const SHELLS = [
+  {
+    id: 'vandal', name: 'VANDAL', role: 'Hyper-Offense / Mobility',
+    color: '#ff2d78', icon: Zap,
+    tagline: 'High mobility, aggressive playstyle. Built around speed, sliding mechanics, and hyper-offensive engagements.',
+    stats: { Mobility: 95, Survivability: 55, Utility: 60, Economy: 50 },
+    prime: { name: 'Super-Dash Overdrive', cd: '78s', desc: 'Chained omni-directional dash burst. Each elimination during Overdrive refunds 22s of Prime cooldown and resets slide momentum.' },
+    tactical: { name: 'Phase Slide', cd: '14s', desc: 'Extended low-profile slide that breaks target locks and leaves a 1.5s heat-distortion decoy trail.' },
+    passive: 'Momentum Engine — sprint-to-slide transitions grant +12% weapon handling for 4s.',
+    implants: ['Adrenal Burner Mk.IV (+10% sprint speed)', 'Kinetic Recycler (slide kills refund Tactical 35%)', 'Sekiguchi Synapse Tap (-8% Prime CD)'],
+    mods: ['Lightweight Stock — ADS while sliding', 'Quickdraw Rails — +25% swap speed', 'Vent Coils — +15 Heat Capacity'],
+    weapons: [
+      { name: 'Overrun AR', type: 'Assault Rifle', note: 'S1 staple. Hipfire bloom shrinks while sliding — core Vandal synergy.' },
+      { name: 'Kessler SMG-7', type: 'SMG', note: 'Strafe-speed perk pairs with Momentum Engine for untouchable duels.' },
+    ],
+    buildName: 'Super-Dash Skirmisher (A-Tier)',
+  },
+  {
+    id: 'sentinel', name: 'SENTINEL', role: 'Space Control / Defense',
+    color: '#00e5ff', icon: Shield,
+    tagline: 'Defensive space-control shell. Drops stasis traps to freeze enemy crews, pings nearby movement, and locks down objectives.',
+    stats: { Mobility: 50, Survivability: 90, Utility: 95, Economy: 65 },
+    prime: { name: 'Stasis Lock Field', cd: '96s', desc: 'Deployable dome that flash-freezes hostile Runners and UESC units for up to 4s on entry. Frozen targets take +20% precision damage.' },
+    tactical: { name: 'Tremor Ping', cd: '18s', desc: 'Pulses a 40m radius motion scan. Moving enemies are wall-pinged for the full crew for 3s.' },
+    passive: 'Bulwark Protocol — holding an objective zone grants +1 passive Shield Charge regeneration tick.',
+    implants: ['NuCaloric Dermal Weave (+1 max Shield Charge)', 'Cryo Capacitor (traps freeze 0.8s longer)', 'Watchdog Loop (Tremor Ping auto-fires when shield breaks)'],
+    mods: ['Reinforced Plating — -10% explosive damage taken', 'Trap Doubler — carry 2nd stasis trap', 'Stabilizer Gyro — no flinch while frozen enemies in LOS'],
+    weapons: [
+      { name: 'Ares RG Railgun', type: 'Railgun', note: 'THE meta pick. One-charge deletes frozen targets — Stasis Lock + Ares RG defines the S2 meta.' },
+      { name: 'Mandible Shotgun', type: 'Shotgun', note: 'Trap-door defense inside Stasis Lock domes and Archive corridors.' },
+    ],
+    buildName: 'Stasis Lock Warden (S-Tier)',
+  },
+  {
+    id: 'rook', name: 'ROOK', role: 'Scavenger / Zero-Risk Infil',
+    color: '#ffe600', icon: Skull,
+    tagline: 'The "Scavenger Mode" zero-risk shell. Deploys solo into ongoing matches with randomized basic gear. Pure evasion and recovery. Cannot progress faction contracts.',
+    stats: { Mobility: 75, Survivability: 60, Utility: 45, Economy: 90 },
+    prime: { name: 'Ghost Protocol', cd: '110s', desc: 'Drops all target locks, mutes footstep audio, and hides you from Tremor Ping / radar sweeps for 9s.' },
+    tactical: { name: 'Scrap Sense', cd: '20s', desc: 'Highlights all lootable containers, corpses, and dropped stashes through walls within 55m.' },
+    passive: 'Free Agent — deploys with randomized basic gear; extraction never risks your persistent stash. Faction contract progress is DISABLED while running Rook.',
+    implants: ['Magpie Coil (+30% loot interaction speed)', 'Low-Profile Servo (crouch-walk is silent)', 'Last Breath Auto-Stim (auto Patch Kit at 15% HP, 1/raid)'],
+    mods: ['Padded Soles — -40% footstep radius', 'Deep Pockets — +4 backpack slots', 'Cut-and-Run — +15% sprint speed when below 30% HP'],
+    weapons: [
+      { name: 'Randomized Sidearm Pool', type: 'Rolled on deploy', note: 'You take what the drop pod gives you. Prioritize upgrading off corpses fast.' },
+      { name: 'Found-Gear Priority: Kessler SMG-7', type: 'Field pickup', note: 'Most common quality drop in Marsh rotations — grab and go.' },
+    ],
+    buildName: 'Greed-is-Good Scavenger (B-Tier, zero-risk)',
+  },
+];
+
+const FACTIONS = [
+  {
+    id: 'cyberacme', name: 'CyberAcme', color: '#00e5ff', icon: Boxes,
+    focus: 'Economy, stash capacity, backpack tier unlocks, and Heat Capacity stat upgrades.',
+    keywords: 'economy stash vault backpack heat capacity credits',
+    ranks: [
+      { rank: 1, unlock: 'Starter Ledger — +5% credit value on all extracted salvage' },
+      { rank: 2, unlock: 'Backpack Tier 1 — unlocks Mule-Class backpack frame (+6 slots)' },
+      { rank: 3, unlock: 'Expansion Tier 1 — +8 Vault Rows added to persistent stash' },
+      { rank: 4, unlock: 'Heatsink License — +20 base Heat Capacity on all shells' },
+      { rank: 5, unlock: 'Backpack Tier 2 — Hauler-Class frame (+10 slots, 1 secure pocket)' },
+      { rank: 6, unlock: 'Expansion Tier 2 — +12 Vault Rows, auto-sort by rarity' },
+      { rank: 7, unlock: 'Acme Prime Account — weekly free Hauler insurance + 10% market tax waiver' },
+    ],
+  },
+  {
+    id: 'nucaloric', name: 'NuCaloric', color: '#3dff8b', icon: HeartPulse,
+    focus: 'Survivability — Shield Charges, Patch Kit efficiency, and self-repair speed.',
+    keywords: 'survivability shield charges patch kit heal repair health',
+    ranks: [
+      { rank: 1, unlock: 'Field Rations — Patch Kits heal +15% more' },
+      { rank: 2, unlock: 'Charge Cell I — +1 max Shield Charge' },
+      { rank: 3, unlock: 'Rapid Mend — self-repair channel time -25%' },
+      { rank: 4, unlock: 'Trauma Triage Protocol — reviving allies also restores 1 of their Shield Charges' },
+      { rank: 5, unlock: 'Charge Cell II — +1 max Shield Charge (stacks)' },
+      { rank: 6, unlock: 'Adaptive Plasma — Patch Kits cleanse burn/cryo status effects' },
+      { rank: 7, unlock: 'Second Skin — out-of-combat shield regen begins 40% sooner' },
+    ],
+  },
+  {
+    id: 'traxus', name: 'Traxus', color: '#ff2d78', icon: Crosshair,
+    focus: 'High-end weapons, advanced scopes, sniper rifle modifications, and radar pings.',
+    keywords: 'weapons scopes sniper radar pings rifles long range',
+    ranks: [
+      { rank: 1, unlock: 'Surplus Contract — Traxus weapon crates appear in your vendor pool' },
+      { rank: 2, unlock: 'Optics Bench — unlocks 4x/6x advanced scope crafting' },
+      { rank: 3, unlock: 'Longshot Kit — sniper rifle mod slot +1 (suppressors, bipods)' },
+      { rank: 4, unlock: 'Skyeye Uplink — manual radar ping consumable, 60m sweep' },
+      { rank: 5, unlock: 'Ares RG License — purchase Ares RG railgun blueprints' },
+      { rank: 6, unlock: 'Match-Grade Rounds — +8% precision damage on Traxus weapons' },
+      { rank: 7, unlock: 'Orbital Spotter — Skyeye pings also mark targets for your whole crew' },
+    ],
+  },
+  {
+    id: 'mida', name: 'MIDA', color: '#ffe600', icon: Bomb,
+    focus: 'Explosives, map sabotage tools, tripmines, and raw Agility upgrades.',
+    keywords: 'explosives sabotage tripmines agility demolition grenades',
+    ranks: [
+      { rank: 1, unlock: 'Demo Permit — frag and concussion grenade crafting' },
+      { rank: 2, unlock: 'Tripmine Schematic — craft proximity tripmines (2 per raid)' },
+      { rank: 3, unlock: 'Agility Graft I — +5 raw Agility on all shells' },
+      { rank: 4, unlock: 'Sabotage Kit — disable extraction beacons & UESC turrets silently' },
+      { rank: 5, unlock: 'Shaped Charges — breach locked Archive side-doors (non-clearance routes)' },
+      { rank: 6, unlock: 'Agility Graft II — +5 raw Agility (stacks)' },
+      { rank: 7, unlock: 'Daisy-Chain Detonator — link up to 3 tripmines to one trigger' },
+    ],
+  },
+  {
+    id: 'arachne', name: 'Arachne', color: '#9d4dff', icon: Swords,
+    focus: 'Close-quarters weapon perks, melee siphon modifiers, and weapon barters.',
+    keywords: 'close quarters melee siphon barter cqc shotgun smg trade',
+    ranks: [
+      { rank: 1, unlock: 'Web Market — barter duplicate weapons for Arachne tokens' },
+      { rank: 2, unlock: 'Siphon Edge I — melee kills restore 10% shield' },
+      { rank: 3, unlock: 'CQC Tuning — SMG/shotgun perk slot +1' },
+      { rank: 4, unlock: 'Silk Wraps — +20% melee lunge range' },
+      { rank: 5, unlock: 'Siphon Edge II — melee kills restore 10% HP (stacks with shield siphon)' },
+      { rank: 6, unlock: 'Black Bazaar — barter for red-tier CQC weapons directly' },
+      { rank: 7, unlock: 'Widow’s Kiss — melee strikes apply 3s venom DoT' },
+    ],
+  },
+  {
+    id: 'sekiguchi', name: 'Sekiguchi', color: '#ff8a00', icon: Cpu,
+    focus: 'Core cooldown reductions, tactical ability regeneration, and bio-implants.',
+    keywords: 'cooldown reduction tactical regen bio implants abilities core',
+    ranks: [
+      { rank: 1, unlock: 'Neural Primer — Tactical cooldowns -5%' },
+      { rank: 2, unlock: 'Implant Bay I — unlocks 2nd bio-implant socket' },
+      { rank: 3, unlock: 'Core Loop — Prime ability cooldowns -8%' },
+      { rank: 4, unlock: 'Reflex Lattice — taking shield damage refunds 4s of Tactical CD (8s ICD)' },
+      { rank: 5, unlock: 'Implant Bay II — unlocks 3rd bio-implant socket' },
+      { rank: 6, unlock: 'Synapse Overclock — Tactical regen +15% while below half shields' },
+      { rank: 7, unlock: 'Ascendant Stack — all ability cooldowns -10% (multiplicative)' },
+    ],
+  },
+];
+
+const MAPS = [
+  { name: 'Outpost', status: 'ACTIVE', heat: 'Moderate UESC patrols', window: 'Rotates 14:00 UTC' },
+  { name: 'Dire Marsh', status: 'ACTIVE', heat: 'Heavy UESC armor sweeps', window: 'Rotates 14:00 UTC' },
+  { name: 'Night Marsh', status: 'STANDBY', heat: 'Low-vis night cycle', window: 'Enters rotation 14:00 UTC' },
+];
+
+const TIER_LIST = [
+  { tier: 'S', color: '#ff2d78', entries: ['Sentinel — Stasis Lock Warden (Ares RG)', 'Sentinel — Objective Bulwark (trio queue)'] },
+  { tier: 'A', color: '#00e5ff', entries: ['Vandal — Super-Dash Skirmisher (Overrun AR)', 'Vandal — Phase Slide Flanker', 'Sentinel — Tremor Recon Hybrid'] },
+  { tier: 'B', color: '#3dff8b', entries: ['Rook — Greed-is-Good Scavenger', 'Vandal — CQC Arachne Siphon'] },
+  { tier: 'C', color: '#ffe600', entries: ['Rook — Ghost Courier (post-nerf)', 'Sentinel — Solo trap-stacker'] },
+];
+
+const PATCH_NOTES = [
+  { ver: 'S2 // 2.1.0', date: 'Jun 04 2026', items: [
+    'Ares RG charge time increased 0.9s → 1.1s (frozen-target bonus untouched — still S-tier).',
+    'Stasis Lock Field freeze vs. Runners capped at 4s (was uncapped vs. low-tier shields).',
+    'Rook: Scrap Sense range 45m → 55m; Ghost Protocol no longer drops mid-mantle.',
+    'Cryo Archive: Wing 4 "Coolant Reflux" wipe timer relaxed 90s → 105s.',
+  ]},
+  { ver: 'S2 // 2.0.2', date: 'May 21 2026', items: [
+    'Night Marsh added to extraction rotation; UESC night-optics squads introduced.',
+    'CyberAcme Rank 3 Vault Rows fixed (granted 6, now correctly +8).',
+    'Tripmine daisy-chains no longer detonate through Archive bulkheads.',
+  ]},
+];
+
+const RAID_WINGS = [
+  {
+    id: 1, name: 'Wing 1 — Reception Vault', clearance: 'Clearance L1', boss: 'UESC Gatekeeper Frame',
+    color: '#00e5ff',
+    holotags: '1 Holotag required (any crew member)',
+    steps: [
+      'Scan a Level-1 Security Clearance card at the south airlock console — cards drop from UESC officers in Outpost/Dire Marsh.',
+      'Split: two Runners hold the reception scaffold while one slots the Holotag into the manifest terminal.',
+      'Gatekeeper Frame spawns at 50% terminal progress. It shield-cycles every 20s — only fire during the amber vent phase.',
+      'Sentinel tip: Stasis Lock the add wave at the second cycle; frozen frames take +20% precision damage.',
+    ],
+  },
+  {
+    id: 2, name: 'Wing 2 — Cryo Stacks', clearance: 'Clearance L1', boss: 'None (stealth gauntlet)',
+    color: '#3dff8b',
+    holotags: '0 Holotags — pure routing',
+    steps: [
+      'Patrolling UESC custodians follow fixed 40s loops — Tremor Ping reveals all three routes at once.',
+      'Do NOT shoot cryo pods: each ruptured pod adds +1 alarm stack; 3 stacks triggers a full-wing lockdown.',
+      'Route along the east catwalk → maintenance crawl → stack 7 ladder. MIDA Shaped Charges open a skip door at stack 4.',
+      'Exit console requires a 2-Runner simultaneous interact.',
+    ],
+  },
+  {
+    id: 3, name: 'Wing 3 — Manifest Core', clearance: 'Clearance L2', boss: 'Archivist Subroutine "LEELA-FRAGMENT"',
+    color: '#ffe600',
+    holotags: '2 Holotags (slot both before boss)',
+    steps: [
+      'L2 Clearance is forged here: combine your L1 card with a Wing-2 datachip at the forgery bench.',
+      'Slot 2 Holotags into the twin manifest pillars to expose the Archivist core.',
+      'Boss rotates 3 plates — stand on the plate matching the core’s glyph color or take stacking burn.',
+      'DPS windows last 12s. Two clean windows is the standard kill pace; three means you’re fighting the enrage adds.',
+    ],
+  },
+  {
+    id: 4, name: 'Wing 4 — Coolant Reflux', clearance: 'Clearance L2', boss: 'Environmental (wipe timer)',
+    color: '#00e5ff',
+    holotags: '0 Holotags — timed valve relay',
+    steps: [
+      'Coolant flood begins on entry: 105s to route pressure through 4 valve clusters (S2.1 buff — was 90s).',
+      'Assign valves clockwise; each valve mini-game is a 3-symbol match shown on the central gauge.',
+      'Vandal Phase Slide crosses the flooded trench without the cryo-slow debuff.',
+      'A wrong symbol vents steam: 30% HP burst — NuCaloric Adaptive Plasma cleanses the burn.',
+    ],
+  },
+  {
+    id: 5, name: 'Wing 5 — Command Spine', clearance: 'Clearance L3', boss: 'UESC Warden-Captain Veles',
+    color: '#ff2d78',
+    holotags: '3 Holotags (full crew, one each)',
+    steps: [
+      'L3 Clearance drops only from the Wing-3 boss — no forgery, no MIDA breach skips here.',
+      'All three Runners slot Holotags simultaneously within a 5s window to open the spine lift.',
+      'Veles alternates rail-cannon snipes and bulwark charges. Bait the charge into the coolant pylons to strip his armor.',
+      'At 30% he deploys a Stasis-immune drone screen — save Tremor Ping to track him through the smoke.',
+    ],
+  },
+  {
+    id: 6, name: 'Wing 6 — The Cryo Archive Heart', clearance: 'Clearance L3', boss: 'ARCHIVE PRIME',
+    color: '#9d4dff',
+    holotags: '3 Holotags + 1 Master Holotag (Veles drop)',
+    steps: [
+      'Slot the Master Holotag center, three standard tags on the perimeter — this is the final lock.',
+      'Archive Prime phases: Cryo Bloom (spread out), Data Lash (line dodge), Purge Protocol (hide behind pods).',
+      'Each phase break opens a 15s crit core. Frozen-core windows favor Ares RG; sustained windows favor Overrun AR.',
+      'On kill, the vault opens for 120s — loot fast, then extract via the orbital tether. Wipe here loses NOTHING already banked at Wing-checkpoint caches.',
+    ],
+  },
+];
+
+const PRESET_BUILDS = [
+  { id: 'trauma', name: 'Trauma Triage Build', shell: 'Sentinel', desc: 'NuCaloric R4 revive engine. Max Shield Regen, team sustain.', toggles: { siphon: false, hauler: false, overclock: true, triage: true, skyeye: false, demo: false }, sliders: { heat: 40, shield: 85, loot: 30 } },
+  { id: 'greed', name: 'Greed is Good Thief Build', shell: 'Rook', desc: 'Loot-speed stack. In, pockets full, gone before the ping lands.', toggles: { siphon: false, hauler: true, overclock: false, triage: false, skyeye: false, demo: false }, sliders: { heat: 25, shield: 30, loot: 95 } },
+  { id: 'railwarden', name: 'Rail Warden Build', shell: 'Sentinel', desc: 'S-tier meta. Stasis Lock + Ares RG precision deletes.', toggles: { siphon: false, hauler: false, overclock: true, triage: false, skyeye: true, demo: false }, sliders: { heat: 70, shield: 60, loot: 20 } },
+  { id: 'dashdemo', name: 'Dash Demolition Build', shell: 'Vandal', desc: 'MIDA tripmine flanker. Agility-stacked sabotage runs.', toggles: { siphon: true, hauler: false, overclock: false, triage: false, skyeye: false, demo: true }, sliders: { heat: 80, shield: 35, loot: 45 } },
+];
+
+const PLANNER_TOGGLES = [
+  { key: 'siphon', name: 'Arachne Siphon Edge', icon: Swords, color: '#9d4dff', effect: 'Melee kills restore shield/HP', mod: { shield: +8, heat: 0, loot: 0 } },
+  { key: 'hauler', name: 'CyberAcme Hauler Frame', icon: Backpack, color: '#00e5ff', effect: '+10 slots, +loot throughput', mod: { shield: 0, heat: 0, loot: +15 } },
+  { key: 'overclock', name: 'Sekiguchi Synapse Overclock', icon: Cpu, color: '#ff8a00', effect: '-10% all cooldowns', mod: { shield: 0, heat: +10, loot: 0 } },
+  { key: 'triage', name: 'NuCaloric Trauma Triage', icon: Syringe, color: '#3dff8b', effect: 'Revives restore Shield Charges', mod: { shield: +12, heat: 0, loot: 0 } },
+  { key: 'skyeye', name: 'Traxus Skyeye Uplink', icon: Radar, color: '#ff2d78', effect: 'Crew-wide radar marks', mod: { shield: 0, heat: +5, loot: +5 } },
+  { key: 'demo', name: 'MIDA Daisy-Chain Demo', icon: Bomb, color: '#ffe600', effect: 'Linked tripmines, breach charges', mod: { shield: -5, heat: +15, loot: 0 } },
+];
+
+/* ============================ SHARED UI ============================ */
+
+const Panel = ({ children, className = '', accent }) => (
+  <div className={`bg-panel border border-edge rounded-lg overflow-hidden ${className}`}
+       style={accent ? { boxShadow: `0 0 0 1px ${accent}22, 0 0 24px -8px ${accent}33` } : {}}>
+    {children}
+  </div>
+);
+
+const PanelHeader = ({ icon: Icon, title, color = '#00e5ff', right }) => (
+  <div className="flex items-center justify-between px-4 py-2.5 border-b border-edge bg-black/40">
+    <div className="flex items-center gap-2">
+      <Icon size={15} style={{ color }} />
+      <span className="text-[11px] font-mono tracking-[0.2em] uppercase text-slate-300">{title}</span>
+    </div>
+    {right}
+  </div>
+);
+
+const StatBar = ({ label, value, color }) => (
+  <div className="mb-2">
+    <div className="flex justify-between text-[10px] font-mono uppercase tracking-wider mb-1">
+      <span className="text-slate-400">{label}</span>
+      <span style={{ color }}>{value}</span>
+    </div>
+    <div className="h-1.5 bg-black/60 rounded-full overflow-hidden">
+      <div className="h-full rounded-full transition-all duration-500" style={{ width: `${value}%`, background: `linear-gradient(90deg, ${color}66, ${color})`, boxShadow: `0 0 8px ${color}` }} />
+    </div>
+  </div>
+);
+
+/* ============================ NAV ============================ */
+
+const TABS = [
+  { id: 'home', label: 'Home', icon: Activity },
+  { id: 'shells', label: 'Runner Shells', icon: Hexagon },
+  { id: 'planner', label: 'Build Planner', icon: Sliders },
+  { id: 'factions', label: 'Faction Upgrades', icon: Layers },
+  { id: 'raid', label: 'Cryo Archive Raid', icon: Snowflake },
+];
+
+function NavBar({ activeTab, setActiveTab }) {
+  return (
+    <header className="sticky top-0 z-50 bg-void/95 backdrop-blur border-b border-edge">
+      {/* Live status ticker */}
+      <div className="bg-black/60 border-b border-edge px-4 py-1 flex items-center gap-4 overflow-x-auto whitespace-nowrap text-[10px] font-mono">
+        <span className="flex items-center gap-1.5 text-neon-green shrink-0">
+          <span className="w-1.5 h-1.5 rounded-full bg-neon-green animate-pulse" /> LIVE // S2 WK3
+        </span>
+        {MAPS.map(m => (
+          <span key={m.name} className="shrink-0 text-slate-400">
+            <span className={m.status === 'ACTIVE' ? 'text-neon-cyan' : 'text-slate-500'}>{m.name}</span>
+            <span className="mx-1 text-slate-600">·</span>{m.status === 'ACTIVE' ? m.heat : m.window}
+          </span>
+        ))}
+        <span className="shrink-0 text-neon-yellow flex items-center gap-1"><Snowflake size={10}/> Cryo Archive: OPEN — Wing 4 timer buffed</span>
+      </div>
+      {/* Brand + tabs */}
+      <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row sm:items-center gap-2 py-2.5">
+        <div className="flex items-center gap-2.5 mr-6 shrink-0">
+          <div className="relative w-8 h-8 grid place-items-center">
+            <Hexagon size={32} className="text-neon-pink absolute" strokeWidth={1.5} />
+            <Zap size={14} className="text-neon-cyan relative" />
+          </div>
+          <div className="leading-tight">
+            <div className="font-mono font-bold tracking-widest text-sm">RUNNER<span className="text-neon-pink glow-pink">.DB</span></div>
+            <div className="text-[9px] font-mono text-slate-500 tracking-[0.25em]">MARATHON 2026 // ENDGAME DATABASE</div>
+          </div>
+        </div>
+        <nav className="flex gap-1 overflow-x-auto">
+          {TABS.map(t => {
+            const active = activeTab === t.id;
+            return (
+              <button key={t.id} onClick={() => setActiveTab(t.id)}
+                className={`flex items-center gap-1.5 px-3 py-2 rounded text-[11px] font-mono uppercase tracking-wider transition-all shrink-0 border
+                  ${active ? 'bg-neon-cyan/10 text-neon-cyan border-neon-cyan/40' : 'text-slate-400 border-transparent hover:text-slate-200 hover:bg-white/5'}`}>
+                <t.icon size={13} /> {t.label}
+              </button>
+            );
+          })}
+        </nav>
+      </div>
+    </header>
+  );
+}
+
+/* ============================ TAB: HOME ============================ */
+
+function HomeTab({ setActiveTab }) {
+  return (
+    <div className="space-y-4">
+      {/* Hero */}
+      <Panel accent="#ff2d78" className="scanline">
+        <div className="p-6 md:p-8 relative">
+          <div className="absolute inset-0 opacity-30 pointer-events-none"
+               style={{ background: 'radial-gradient(ellipse at 80% 0%, rgba(255,45,120,.25), transparent 55%), radial-gradient(ellipse at 10% 100%, rgba(0,229,255,.2), transparent 55%)' }} />
+          <div className="relative">
+            <div className="text-[10px] font-mono tracking-[0.3em] text-neon-cyan mb-2">SEASON 2 // "COLD MANIFEST"</div>
+            <h1 className="text-3xl md:text-5xl font-black tracking-tight">
+              TAU CETI IV <span className="text-neon-pink glow-pink">ENDGAME</span> INTEL
+            </h1>
+            <p className="mt-3 max-w-2xl text-sm text-slate-400">
+              Curated Runner shell rankings, faction routing, and a full Cryo Archive raid blueprint —
+              updated for patch 2.1.0. Pick your shell, plan your build, extract rich.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              <button onClick={() => setActiveTab('shells')} className="flex items-center gap-1.5 px-4 py-2 bg-neon-pink/15 border border-neon-pink/50 text-neon-pink rounded font-mono text-xs uppercase tracking-wider hover:bg-neon-pink/25 transition">Browse Shells <ArrowUpRight size={13}/></button>
+              <button onClick={() => setActiveTab('raid')} className="flex items-center gap-1.5 px-4 py-2 bg-neon-cyan/10 border border-neon-cyan/40 text-neon-cyan rounded font-mono text-xs uppercase tracking-wider hover:bg-neon-cyan/20 transition">Raid Blueprint <Snowflake size={13}/></button>
+            </div>
+          </div>
+        </div>
+      </Panel>
+
+      <div className="grid lg:grid-cols-3 gap-4">
+        {/* Tier list */}
+        <Panel className="lg:col-span-2">
+          <PanelHeader icon={Trophy} title="Current Meta Tier List — Patch 2.1.0" color="#ffe600"
+            right={<span className="text-[9px] font-mono text-slate-500">EXTRACTION + ARCHIVE COMPOSITE</span>} />
+          <div className="p-3 space-y-2">
+            {TIER_LIST.map(row => (
+              <div key={row.tier} className="flex items-stretch gap-3">
+                <div className="w-12 shrink-0 grid place-items-center rounded font-black text-xl border"
+                     style={{ color: row.color, borderColor: row.color + '55', background: row.color + '12', textShadow: `0 0 12px ${row.color}` }}>
+                  {row.tier}
+                </div>
+                <div className="flex-1 flex flex-wrap gap-1.5 items-center">
+                  {row.entries.map(e => (
+                    <span key={e} className="px-2.5 py-1.5 rounded bg-black/50 border border-edge text-xs text-slate-300 hover:border-slate-500 transition cursor-default">{e}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+            <p className="text-[10px] font-mono text-slate-500 pt-1">
+              <AlertTriangle size={10} className="inline mr-1 text-neon-yellow" />
+              Sentinel Stasis Lock + Ares RG survived the 2.1.0 charge-time nerf — still the defining S-tier line.
+            </p>
+          </div>
+        </Panel>
+
+        {/* Economy strategy */}
+        <Panel accent="#3dff8b">
+          <PanelHeader icon={Coins} title="Top Economy Strategy" color="#3dff8b" />
+          <div className="p-4 space-y-3 text-xs">
+            <div className="flex gap-2.5">
+              <TrendingUp size={16} className="text-neon-green shrink-0 mt-0.5" />
+              <p className="text-slate-300"><span className="text-neon-green font-semibold">Rush CyberAcme Rank 3 first.</span> Expansion Tier 1 (+8 Vault Rows) compounds every single extraction afterward — fastest payback in S2.</p>
+            </div>
+            <div className="flex gap-2.5">
+              <Skull size={16} className="text-neon-yellow shrink-0 mt-0.5" />
+              <p className="text-slate-300"><span className="text-neon-yellow font-semibold">Rook between deaths.</span> Zero-risk Scavenger runs rebuild your credit floor — but remember: <span className="text-slate-400">no faction contract progress on Rook.</span></p>
+            </div>
+            <div className="flex gap-2.5">
+              <Swords size={16} className="text-neon-violet shrink-0 mt-0.5" />
+              <p className="text-slate-300"><span className="text-neon-violet font-semibold">Barter dupes at Arachne.</span> Duplicate purples → Web Market tokens → Black Bazaar red-tier CQC at Rank 6.</p>
+            </div>
+            <button onClick={() => setActiveTab('factions')} className="w-full mt-1 py-2 rounded border border-neon-green/40 text-neon-green font-mono text-[10px] uppercase tracking-widest hover:bg-neon-green/10 transition">Open Faction Matrix →</button>
+          </div>
+        </Panel>
+      </div>
+
+      {/* Patch notes */}
+      <Panel>
+        <PanelHeader icon={Newspaper} title="Breaking — Season 2 Patch Notes" color="#ff2d78" />
+        <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-edge">
+          {PATCH_NOTES.map(p => (
+            <div key={p.ver} className="p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="font-mono text-sm text-neon-cyan glow-cyan">{p.ver}</span>
+                <span className="text-[10px] font-mono text-slate-500">{p.date}</span>
+              </div>
+              <ul className="space-y-1.5">
+                {p.items.map((it, i) => (
+                  <li key={i} className="flex gap-2 text-xs text-slate-300">
+                    <ChevronRight size={12} className="text-neon-pink shrink-0 mt-0.5" /> {it}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </Panel>
+
+      {/* Map rotation cards */}
+      <div className="grid sm:grid-cols-3 gap-4">
+        {MAPS.map(m => (
+          <Panel key={m.name}>
+            <div className="p-4">
+              <div className="flex items-center justify-between mb-1">
+                <span className="font-mono font-bold text-sm flex items-center gap-1.5"><MapIcon size={13} className="text-neon-cyan"/>{m.name}</span>
+                <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded border ${m.status === 'ACTIVE' ? 'text-neon-green border-neon-green/40 bg-neon-green/10' : 'text-slate-400 border-slate-600 bg-black/40'}`}>{m.status}</span>
+              </div>
+              <p className="text-[11px] text-slate-400">{m.heat}</p>
+              <p className="text-[10px] font-mono text-slate-500 mt-1.5 flex items-center gap-1"><Timer size={10}/>{m.window}</p>
+            </div>
+          </Panel>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ============================ TAB: SHELLS ============================ */
+
+function ShellsTab() {
+  const [selected, setSelected] = useState('sentinel');
+  const shell = SHELLS.find(s => s.id === selected);
+
+  return (
+    <div className="grid lg:grid-cols-[280px_1fr] gap-4">
+      {/* Left: shell cards */}
+      <div className="space-y-3">
+        {SHELLS.map(s => {
+          const active = s.id === selected;
+          return (
+            <button key={s.id} onClick={() => setSelected(s.id)}
+              className={`w-full text-left rounded-lg border p-4 transition-all ${active ? 'bg-panel' : 'bg-panel/50 border-edge hover:border-slate-600'}`}
+              style={active ? { borderColor: s.color, boxShadow: `0 0 20px -6px ${s.color}66` } : {}}>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded grid place-items-center border" style={{ borderColor: s.color + '66', background: s.color + '14' }}>
+                  <s.icon size={18} style={{ color: s.color }} />
+                </div>
+                <div>
+                  <div className="font-mono font-bold tracking-widest text-sm" style={{ color: active ? s.color : '#e2e8f0' }}>{s.name}</div>
+                  <div className="text-[10px] font-mono text-slate-500 uppercase">{s.role}</div>
+                </div>
+                {active && <ChevronRight size={16} className="ml-auto" style={{ color: s.color }} />}
+              </div>
+            </button>
+          );
+        })}
+        <Panel className="p-3 text-[10px] font-mono text-slate-500 leading-relaxed">
+          <AlertTriangle size={11} className="inline mr-1 text-neon-yellow" />
+          ROOK NOTE: Scavenger deployments cannot progress faction contracts. Use Vandal/Sentinel for rep grinds.
+        </Panel>
+      </div>
+
+      {/* Right: details */}
+      <div className="space-y-4">
+        <Panel accent={shell.color}>
+          <div className="p-5 relative scanline">
+            <div className="absolute inset-0 opacity-25 pointer-events-none" style={{ background: `radial-gradient(ellipse at 90% 10%, ${shell.color}33, transparent 60%)` }} />
+            <div className="relative flex flex-col md:flex-row gap-5">
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1">
+                  <shell.icon size={20} style={{ color: shell.color }} />
+                  <h2 className="text-2xl font-black tracking-widest" style={{ color: shell.color, textShadow: `0 0 16px ${shell.color}88` }}>{shell.name}</h2>
+                  <span className="text-[9px] font-mono px-2 py-0.5 rounded border" style={{ color: shell.color, borderColor: shell.color + '55' }}>{shell.buildName}</span>
+                </div>
+                <p className="text-sm text-slate-400 max-w-xl">{shell.tagline}</p>
+                <p className="mt-3 text-xs text-slate-300"><span className="font-mono text-[10px] uppercase tracking-widest text-slate-500 mr-2">Passive //</span>{shell.passive}</p>
+              </div>
+              <div className="w-full md:w-56 shrink-0">
+                {Object.entries(shell.stats).map(([k, v]) => <StatBar key={k} label={k} value={v} color={shell.color} />)}
+              </div>
+            </div>
+          </div>
+        </Panel>
+
+        {/* Abilities */}
+        <div className="grid md:grid-cols-2 gap-4">
+          <Panel>
+            <PanelHeader icon={Flame} title="Prime Ability" color={shell.color} right={<span className="font-mono text-[10px] text-slate-400 flex items-center gap-1"><Timer size={10}/>CD {shell.prime.cd}</span>} />
+            <div className="p-4">
+              <div className="font-bold text-sm mb-1" style={{ color: shell.color }}>{shell.prime.name}</div>
+              <p className="text-xs text-slate-400">{shell.prime.desc}</p>
+            </div>
+          </Panel>
+          <Panel>
+            <PanelHeader icon={Gauge} title="Tactical Ability" color={shell.color} right={<span className="font-mono text-[10px] text-slate-400 flex items-center gap-1"><Timer size={10}/>CD {shell.tactical.cd}</span>} />
+            <div className="p-4">
+              <div className="font-bold text-sm mb-1" style={{ color: shell.color }}>{shell.tactical.name}</div>
+              <p className="text-xs text-slate-400">{shell.tactical.desc}</p>
+            </div>
+          </Panel>
+        </div>
+
+        {/* Gear layout */}
+        <div className="grid md:grid-cols-3 gap-4">
+          <Panel>
+            <PanelHeader icon={Cpu} title="Bio-Implants" color="#ff8a00" />
+            <ul className="p-3 space-y-2">
+              {shell.implants.map((im, i) => (
+                <li key={i} className="flex gap-2 text-xs text-slate-300 bg-black/40 border border-edge rounded px-2.5 py-2">
+                  <Hexagon size={12} className="text-[#ff8a00] shrink-0 mt-0.5" /> {im}
+                </li>
+              ))}
+            </ul>
+          </Panel>
+          <Panel>
+            <PanelHeader icon={Wrench} title="Modification Slots" color="#00e5ff" />
+            <ul className="p-3 space-y-2">
+              {shell.mods.map((m, i) => (
+                <li key={i} className="flex gap-2 text-xs text-slate-300 bg-black/40 border border-edge rounded px-2.5 py-2">
+                  <Wrench size={12} className="text-neon-cyan shrink-0 mt-0.5" /> {m}
+                </li>
+              ))}
+            </ul>
+          </Panel>
+          <Panel>
+            <PanelHeader icon={Crosshair} title="Recommended Weapons" color="#ff2d78" />
+            <ul className="p-3 space-y-2">
+              {shell.weapons.map((w, i) => (
+                <li key={i} className="bg-black/40 border border-edge rounded px-2.5 py-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-neon-pink">{w.name}</span>
+                    <span className="text-[9px] font-mono text-slate-500 uppercase">{w.type}</span>
+                  </div>
+                  <p className="text-[11px] text-slate-400 mt-1">{w.note}</p>
+                </li>
+              ))}
+            </ul>
+          </Panel>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================ TAB: FACTIONS ============================ */
+
+function FactionsTab() {
+  const [query, setQuery] = useState('');
+  const [open, setOpen] = useState('cyberacme');
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return FACTIONS;
+    return FACTIONS.filter(f =>
+      f.name.toLowerCase().includes(q) || f.focus.toLowerCase().includes(q) ||
+      f.keywords.includes(q) || f.ranks.some(r => r.unlock.toLowerCase().includes(q))
+    );
+  }, [query]);
+
+  return (
+    <div className="space-y-4">
+      <Panel>
+        <div className="p-4 flex flex-col sm:flex-row sm:items-center gap-3">
+          <div className="flex items-center gap-2">
+            <Layers size={18} className="text-neon-cyan" />
+            <h2 className="font-mono font-bold tracking-widest text-sm uppercase">Faction Progression Matrix</h2>
+          </div>
+          <div className="relative flex-1 sm:max-w-xs sm:ml-auto">
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+            <input value={query} onChange={e => setQuery(e.target.value)}
+              placeholder="Search corps, unlocks, stats…"
+              className="w-full bg-black/60 border border-edge rounded pl-9 pr-3 py-2 text-xs font-mono focus:outline-none focus:border-neon-cyan/60 placeholder:text-slate-600" />
+          </div>
+        </div>
+      </Panel>
+
+      {filtered.length === 0 && (
+        <Panel className="p-8 text-center text-sm font-mono text-slate-500">// NO CORPORATION MATCHES "{query}" — TRY "shield", "sniper", "vault"…</Panel>
+      )}
+
+      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+        {filtered.map(f => {
+          const expanded = open === f.id;
+          return (
+            <Panel key={f.id} accent={expanded ? f.color : null} className={expanded ? 'md:col-span-2 xl:col-span-3' : ''}>
+              <button onClick={() => setOpen(expanded ? null : f.id)} className="w-full text-left">
+                <div className="p-4 flex items-center gap-3 hover:bg-white/[.02] transition">
+                  <div className="w-11 h-11 rounded grid place-items-center border shrink-0" style={{ borderColor: f.color + '66', background: f.color + '14' }}>
+                    <f.icon size={20} style={{ color: f.color }} />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="font-mono font-bold tracking-widest text-sm" style={{ color: f.color }}>{f.name.toUpperCase()}</div>
+                    <p className="text-[11px] text-slate-400 truncate">{f.focus}</p>
+                  </div>
+                  {expanded ? <ChevronDown size={16} style={{ color: f.color }}/> : <ChevronRight size={16} className="text-slate-500" />}
+                </div>
+              </button>
+              {expanded && (
+                <div className="border-t border-edge p-4">
+                  <p className="text-xs text-slate-400 mb-4">{f.focus}</p>
+                  <div className="relative ml-3 pl-6 border-l border-edge space-y-3">
+                    {f.ranks.map(r => (
+                      <div key={r.rank} className="relative">
+                        <div className="absolute -left-[33px] top-1 w-3.5 h-3.5 rounded-full border-2 bg-void"
+                             style={{ borderColor: f.color, boxShadow: `0 0 8px ${f.color}88` }} />
+                        <div className="bg-black/40 border border-edge rounded px-3 py-2 flex flex-col sm:flex-row sm:items-center gap-1.5 hover:border-slate-600 transition">
+                          <span className="font-mono text-[10px] uppercase tracking-widest shrink-0 w-16" style={{ color: f.color }}>Rank {r.rank}</span>
+                          <span className="text-xs text-slate-300">{r.unlock}</span>
+                          {r.rank <= 3 ? <Unlock size={12} className="text-neon-green sm:ml-auto shrink-0"/> : <Lock size={12} className="text-slate-600 sm:ml-auto shrink-0"/>}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </Panel>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/* ============================ TAB: BUILD PLANNER ============================ */
+
+function PlannerTab() {
+  const [shellId, setShellId] = useState('sentinel');
+  const [toggles, setToggles] = useState({ siphon: false, hauler: false, overclock: true, triage: false, skyeye: true, demo: false });
+  const [sliders, setSliders] = useState({ heat: 70, shield: 60, loot: 20 });
+  const [presetName, setPresetName] = useState('Rail Warden Build');
+
+  const shell = SHELLS.find(s => s.id === shellId);
+
+  const totals = useMemo(() => {
+    let heat = sliders.heat, shieldv = sliders.shield, loot = sliders.loot;
+    PLANNER_TOGGLES.forEach(t => { if (toggles[t.key]) { heat += t.mod.heat; shieldv += t.mod.shield; loot += t.mod.loot; } });
+    const clamp = v => Math.max(0, Math.min(120, v));
+    heat = clamp(heat); shieldv = clamp(shieldv); loot = clamp(loot);
+    const power = Math.round(heat * 1.4 + shieldv * 1.6 + loot * 1.1 + Object.values(toggles).filter(Boolean).length * 18 + shell.stats.Utility * 0.8);
+    const rating = power >= 380 ? 'S' : power >= 320 ? 'A' : power >= 250 ? 'B' : 'C';
+    return { heat, shield: shieldv, loot, power, rating };
+  }, [toggles, sliders, shell]);
+
+  const applyPreset = (p) => {
+    setShellId(SHELLS.find(s => s.name.toLowerCase() === p.shell.toLowerCase())?.id || 'sentinel');
+    setToggles({ ...p.toggles });
+    setSliders({ ...p.sliders });
+    setPresetName(p.name);
+  };
+
+  const ratingColor = { S: '#ff2d78', A: '#00e5ff', B: '#3dff8b', C: '#ffe600' }[totals.rating];
+
+  return (
+    <div className="space-y-4">
+      {/* Presets */}
+      <Panel>
+        <PanelHeader icon={Database} title="Preset Loadouts" color="#9d4dff" right={<span className="text-[9px] font-mono text-slate-500">CLICK TO LOAD</span>} />
+        <div className="p-3 grid sm:grid-cols-2 lg:grid-cols-4 gap-2">
+          {PRESET_BUILDS.map(p => (
+            <button key={p.id} onClick={() => applyPreset(p)}
+              className={`text-left rounded border p-3 transition ${presetName === p.name ? 'border-neon-violet/60 bg-neon-violet/10' : 'border-edge bg-black/40 hover:border-slate-600'}`}>
+              <div className="text-xs font-bold text-slate-200">{p.name}</div>
+              <div className="text-[9px] font-mono uppercase tracking-widest text-neon-violet mt-0.5">{p.shell} Shell</div>
+              <p className="text-[10px] text-slate-500 mt-1">{p.desc}</p>
+            </button>
+          ))}
+        </div>
+      </Panel>
+
+      <div className="grid lg:grid-cols-[1fr_320px] gap-4">
+        <div className="space-y-4">
+          {/* Shell select */}
+          <Panel>
+            <PanelHeader icon={Hexagon} title="Shell Chassis" color="#00e5ff" />
+            <div className="p-3 grid grid-cols-3 gap-2">
+              {SHELLS.map(s => (
+                <button key={s.id} onClick={() => { setShellId(s.id); setPresetName('Custom Build'); }}
+                  className={`rounded border p-3 flex flex-col items-center gap-1.5 transition ${shellId === s.id ? '' : 'border-edge bg-black/40 hover:border-slate-600'}`}
+                  style={shellId === s.id ? { borderColor: s.color, background: s.color + '12' } : {}}>
+                  <s.icon size={18} style={{ color: s.color }} />
+                  <span className="font-mono text-[10px] tracking-widest" style={{ color: shellId === s.id ? s.color : '#94a3b8' }}>{s.name}</span>
+                </button>
+              ))}
+            </div>
+          </Panel>
+
+          {/* Toggles */}
+          <Panel>
+            <PanelHeader icon={Cpu} title="Faction Module Toggles" color="#ff8a00" />
+            <div className="p-3 grid sm:grid-cols-2 gap-2">
+              {PLANNER_TOGGLES.map(t => {
+                const on = toggles[t.key];
+                return (
+                  <button key={t.key} onClick={() => { setToggles(prev => ({ ...prev, [t.key]: !prev[t.key] })); setPresetName('Custom Build'); }}
+                    className={`flex items-center gap-3 rounded border p-3 text-left transition ${on ? '' : 'border-edge bg-black/40 hover:border-slate-600'}`}
+                    style={on ? { borderColor: t.color + '88', background: t.color + '10' } : {}}>
+                    <t.icon size={16} style={{ color: on ? t.color : '#475569' }} className="shrink-0" />
+                    <div className="min-w-0 flex-1">
+                      <div className="text-xs font-semibold" style={{ color: on ? t.color : '#cbd5e1' }}>{t.name}</div>
+                      <div className="text-[10px] text-slate-500">{t.effect}</div>
+                    </div>
+                    <div className={`w-9 h-5 rounded-full p-0.5 shrink-0 transition ${on ? '' : 'bg-edge'}`} style={on ? { background: t.color + '55' } : {}}>
+                      <div className={`w-4 h-4 rounded-full transition-transform ${on ? 'translate-x-4' : ''}`} style={{ background: on ? t.color : '#475569', boxShadow: on ? `0 0 8px ${t.color}` : 'none' }} />
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </Panel>
+
+          {/* Sliders */}
+          <Panel>
+            <PanelHeader icon={Sliders} title="Core Stat Allocation" color="#3dff8b" />
+            <div className="p-4 space-y-5">
+              {[
+                { key: 'heat', label: 'Heat Capacity', icon: Flame, color: '#ff2d78' },
+                { key: 'shield', label: 'Shield Regeneration', icon: Shield, color: '#00e5ff' },
+                { key: 'loot', label: 'Loot Speed', icon: Backpack, color: '#ffe600' },
+              ].map(s => (
+                <div key={s.key}>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-slate-300"><s.icon size={13} style={{ color: s.color }}/>{s.label}</span>
+                    <span className="font-mono text-sm font-bold" style={{ color: s.color }}>{sliders[s.key]}</span>
+                  </div>
+                  <input type="range" min="0" max="100" value={sliders[s.key]}
+                    onChange={e => { setSliders(prev => ({ ...prev, [s.key]: +e.target.value })); setPresetName('Custom Build'); }}
+                    className="w-full" />
+                </div>
+              ))}
+            </div>
+          </Panel>
+        </div>
+
+        {/* Output panel */}
+        <div className="space-y-4">
+          <Panel accent={ratingColor}>
+            <PanelHeader icon={Activity} title="Build Output" color={ratingColor} />
+            <div className="p-4">
+              <div className="text-center mb-4">
+                <div className="text-[10px] font-mono uppercase tracking-widest text-slate-500">{presetName}</div>
+                <div className="text-xs font-mono mt-0.5" style={{ color: shell.color }}>{shell.name} CHASSIS</div>
+                <div className="mt-3 inline-grid place-items-center w-20 h-20 rounded-full border-2 relative"
+                     style={{ borderColor: ratingColor, boxShadow: `0 0 24px ${ratingColor}55, inset 0 0 18px ${ratingColor}22` }}>
+                  <span className="text-3xl font-black" style={{ color: ratingColor, textShadow: `0 0 14px ${ratingColor}` }}>{totals.rating}</span>
+                </div>
+                <div className="mt-2 font-mono text-xs text-slate-400">POWER INDEX <span className="text-slate-100 font-bold">{totals.power}</span></div>
+              </div>
+              <StatBar label="Eff. Heat Capacity" value={Math.min(100, totals.heat)} color="#ff2d78" />
+              <StatBar label="Eff. Shield Regen" value={Math.min(100, totals.shield)} color="#00e5ff" />
+              <StatBar label="Eff. Loot Speed" value={Math.min(100, totals.loot)} color="#ffe600" />
+              <div className="mt-3 pt-3 border-t border-edge space-y-1.5">
+                <div className="text-[9px] font-mono uppercase tracking-widest text-slate-500 mb-1">Active Modules</div>
+                {PLANNER_TOGGLES.filter(t => toggles[t.key]).map(t => (
+                  <div key={t.key} className="flex items-center gap-1.5 text-[11px]" style={{ color: t.color }}>
+                    <CheckCircle2 size={11} /> {t.name}
+                  </div>
+                ))}
+                {Object.values(toggles).every(v => !v) && <div className="text-[11px] text-slate-600 font-mono">// no modules slotted</div>}
+              </div>
+            </div>
+          </Panel>
+          <Panel className="p-3 text-[10px] font-mono text-slate-500 leading-relaxed">
+            <Eye size={11} className="inline mr-1 text-neon-cyan" />
+            Power Index weights Shield Regen highest (Archive sustain checks), then Heat. 380+ projects S-tier viability in patch 2.1.0.
+          </Panel>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================ TAB: RAID ============================ */
+
+function RaidMapSVG({ activeWing, setActiveWing }) {
+  // 6 wings arranged around a central spine on the colony ship
+  const nodes = [
+    { id: 1, x: 110, y: 250 }, { id: 2, x: 230, y: 130 }, { id: 3, x: 350, y: 250 },
+    { id: 4, x: 350, y: 90 },  { id: 5, x: 480, y: 170 }, { id: 6, x: 600, y: 170 },
+  ];
+  const links = [[1,2],[2,3],[2,4],[3,5],[4,5],[5,6]];
+  const pos = id => nodes.find(n => n.id === id);
+  return (
+    <svg viewBox="0 0 700 340" className="w-full h-auto" role="img" aria-label="Cryo Archive wing map">
+      <defs>
+        <radialGradient id="hullGlow" cx="50%" cy="50%" r="60%">
+          <stop offset="0%" stopColor="#00e5ff" stopOpacity="0.07" />
+          <stop offset="100%" stopColor="#000" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      {/* hull silhouette */}
+      <ellipse cx="350" cy="170" rx="330" ry="150" fill="url(#hullGlow)" stroke="#1c1c2b" strokeWidth="1.5" strokeDasharray="6 5" />
+      <text x="350" y="322" textAnchor="middle" fontFamily="monospace" fontSize="10" fill="#475569" letterSpacing="4">UESC COLONY SHIP — ORBITAL DECK PLAN</text>
+      {/* connections */}
+      {links.map(([a,b],i) => {
+        const A = pos(a), B = pos(b);
+        const hot = activeWing === a || activeWing === b;
+        return <line key={i} x1={A.x} y1={A.y} x2={B.x} y2={B.y} stroke={hot ? '#00e5ff' : '#1c1c2b'} strokeWidth={hot ? 2 : 1.5} strokeDasharray={hot ? '0' : '4 4'} />;
+      })}
+      {/* wing nodes */}
+      {nodes.map(n => {
+        const wing = RAID_WINGS.find(w => w.id === n.id);
+        const active = activeWing === n.id;
+        return (
+          <g key={n.id} onClick={() => setActiveWing(n.id)} style={{ cursor: 'pointer' }}>
+            {active && <circle cx={n.x} cy={n.y} r="34" fill={wing.color} opacity="0.12">
+              <animate attributeName="r" values="30;38;30" dur="2s" repeatCount="indefinite" />
+            </circle>}
+            <polygon
+              points={`${n.x},${n.y-22} ${n.x+19},${n.y-11} ${n.x+19},${n.y+11} ${n.x},${n.y+22} ${n.x-19},${n.y+11} ${n.x-19},${n.y-11}`}
+              fill={active ? wing.color + '22' : '#0b0b12'}
+              stroke={active ? wing.color : '#334155'} strokeWidth="2" />
+            <text x={n.x} y={n.y+5} textAnchor="middle" fontFamily="monospace" fontWeight="bold" fontSize="14" fill={active ? wing.color : '#94a3b8'}>{n.id}</text>
+            <text x={n.x} y={n.y+38} textAnchor="middle" fontFamily="monospace" fontSize="8.5" fill={active ? wing.color : '#64748b'} letterSpacing="1">
+              {wing.name.split('— ')[1].toUpperCase()}
+            </text>
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
+function RaidTab() {
+  const [activeWing, setActiveWing] = useState(1);
+  const [checked, setChecked] = useState({});
+  const wing = RAID_WINGS.find(w => w.id === activeWing);
+  const toggleStep = (i) => setChecked(prev => ({ ...prev, [`${activeWing}-${i}`]: !prev[`${activeWing}-${i}`] }));
+  const done = wing.steps.filter((_, i) => checked[`${activeWing}-${i}`]).length;
+
+  return (
+    <div className="space-y-4">
+      <Panel accent="#00e5ff" className="scanline">
+        <div className="p-5">
+          <div className="flex flex-wrap items-center gap-3 mb-1">
+            <Snowflake size={20} className="text-neon-cyan" />
+            <h2 className="text-xl font-black tracking-widest text-neon-cyan glow-cyan">THE CRYO ARCHIVE</h2>
+            <span className="text-[9px] font-mono px-2 py-0.5 rounded border border-neon-pink/50 text-neon-pink">HARDCORE // 6-WING RAID</span>
+          </div>
+          <p className="text-xs text-slate-400 max-w-3xl">
+            Multi-wing endgame raid zone aboard the orbiting UESC colony ship. Progression gates on Security Clearance
+            levels (L1 → L3) and Holotags slotted at manifest terminals. Click any wing on the deck plan below.
+          </p>
+        </div>
+        <div className="px-2 pb-2"><RaidMapSVG activeWing={activeWing} setActiveWing={setActiveWing} /></div>
+      </Panel>
+
+      <div className="grid lg:grid-cols-[1fr_300px] gap-4">
+        {/* Step checklist */}
+        <Panel accent={wing.color}>
+          <PanelHeader icon={KeyRound} title={wing.name} color={wing.color}
+            right={<span className="font-mono text-[10px]" style={{ color: wing.color }}>{done}/{wing.steps.length} STEPS</span>} />
+          <div className="p-4">
+            <div className="flex flex-wrap gap-2 mb-4">
+              <span className="text-[10px] font-mono px-2 py-1 rounded border flex items-center gap-1.5" style={{ color: wing.color, borderColor: wing.color + '55', background: wing.color + '10' }}>
+                <Lock size={10}/>{wing.clearance}
+              </span>
+              <span className="text-[10px] font-mono px-2 py-1 rounded border border-neon-yellow/50 text-neon-yellow bg-neon-yellow/5 flex items-center gap-1.5">
+                <Wifi size={10}/>{wing.holotags}
+              </span>
+              <span className="text-[10px] font-mono px-2 py-1 rounded border border-neon-pink/50 text-neon-pink bg-neon-pink/5 flex items-center gap-1.5">
+                <Skull size={10}/>BOSS: {wing.boss}
+              </span>
+            </div>
+            <ol className="space-y-2">
+              {wing.steps.map((step, i) => {
+                const isDone = !!checked[`${activeWing}-${i}`];
+                return (
+                  <li key={i}>
+                    <button onClick={() => toggleStep(i)} className={`w-full text-left flex gap-3 rounded border p-3 transition ${isDone ? 'border-neon-green/40 bg-neon-green/5' : 'border-edge bg-black/40 hover:border-slate-600'}`}>
+                      {isDone ? <CheckCircle2 size={16} className="text-neon-green shrink-0 mt-0.5" /> : <Circle size={16} className="text-slate-600 shrink-0 mt-0.5" />}
+                      <div>
+                        <span className="font-mono text-[9px] uppercase tracking-widest" style={{ color: wing.color }}>Step {i + 1}</span>
+                        <p className={`text-xs mt-0.5 ${isDone ? 'text-slate-500 line-through' : 'text-slate-300'}`}>{step}</p>
+                      </div>
+                    </button>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+        </Panel>
+
+        {/* Clearance routing summary */}
+        <div className="space-y-4">
+          <Panel>
+            <PanelHeader icon={KeyRound} title="Clearance Routing" color="#ffe600" />
+            <div className="p-3 space-y-2">
+              {[
+                { lvl: 'L1', src: 'UESC officers (Outpost / Dire Marsh drops)', gates: 'Wings 1–2' },
+                { lvl: 'L2', src: 'Forged in Wing 3 (L1 card + Wing-2 datachip)', gates: 'Wings 3–4' },
+                { lvl: 'L3', src: 'Wing-3 boss drop only — no forgery', gates: 'Wings 5–6' },
+              ].map(c => (
+                <div key={c.lvl} className="bg-black/40 border border-edge rounded p-2.5">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-neon-yellow">{c.lvl} CLEARANCE</span>
+                    <span className="text-[9px] font-mono text-slate-500">{c.gates}</span>
+                  </div>
+                  <p className="text-[10px] text-slate-400 mt-1">{c.src}</p>
+                </div>
+              ))}
+            </div>
+          </Panel>
+          <Panel>
+            <PanelHeader icon={Wifi} title="Holotag Manifest" color="#00e5ff" />
+            <div className="p-3 space-y-1.5">
+              {RAID_WINGS.map(w => (
+                <button key={w.id} onClick={() => setActiveWing(w.id)}
+                  className={`w-full flex items-center gap-2 text-left rounded px-2.5 py-2 border text-[11px] transition ${activeWing === w.id ? 'bg-white/5' : 'border-transparent hover:bg-white/5'}`}
+                  style={activeWing === w.id ? { borderColor: w.color + '66' } : {}}>
+                  <span className="font-mono font-bold w-5" style={{ color: w.color }}>W{w.id}</span>
+                  <span className="text-slate-400 truncate flex-1">{w.holotags}</span>
+                </button>
+              ))}
+            </div>
+          </Panel>
+          <Panel className="p-3 text-[10px] font-mono text-slate-500 leading-relaxed">
+            <AlertTriangle size={11} className="inline mr-1 text-neon-yellow" />
+            Wing-checkpoint caches bank loot permanently — a Wing 6 wipe never costs banked drops.
+          </Panel>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================ APP ============================ */
+
+function App() {
+  const [activeTab, setActiveTab] = useState('home');
+  return (
+    <div className="min-h-screen bg-void">
+      <NavBar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <main className="max-w-7xl mx-auto px-4 py-5">
+        {activeTab === 'home' && <HomeTab setActiveTab={setActiveTab} />}
+        {activeTab === 'shells' && <ShellsTab />}
+        {activeTab === 'planner' && <PlannerTab />}
+        {activeTab === 'factions' && <FactionsTab />}
+        {activeTab === 'raid' && <RaidTab />}
+      </main>
+      <footer className="border-t border-edge py-5 text-center">
+        <p className="text-[10px] font-mono text-slate-600 tracking-widest">
+          RUNNER.DB // UNOFFICIAL FAN DATABASE — MARATHON © BUNGIE · DATA: SEASON 2 PATCH 2.1.0 · NO AFFILIATION
+        </p>
+      </footer>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
