@@ -1,10 +1,26 @@
 {
-  "fetchedAt": "2026-06-23T14:15:12.496Z",
+  "fetchedAt": "2026-06-23T19:46:48.133Z",
   "feed": "https://www.bungie.net/en/rss/News",
   "note": "Merged official-feed items with seeded sourced entries. Re-run `npm run ingest:news` to refresh.",
   "items": [
     {
-      "id": "bungie-2026-06-16-0",
+      "id": "bungie-2026-06-23-0",
+      "date": "2026-06-23",
+      "title": "Get to Know Marathon’s Bungie Rewards",
+      "summary": "How to secure exclusive merchandise for your IRL vault.",
+      "url": "https://www.bungie.net/7/en/News/Article/get_to_know_marathons_bungie_rewards",
+      "sourceName": "Bungie.net"
+    },
+    {
+      "id": "bungie-2026-06-23-1",
+      "date": "2026-06-23",
+      "title": "Marathon Update 1.1.0.3",
+      "summary": "The one about Cryo Archive Sponsored Kits.",
+      "url": "https://www.bungie.net/7/en/News/Article/marathon_update_1_1_0_3",
+      "sourceName": "Bungie.net"
+    },
+    {
+      "id": "bungie-2026-06-16-2",
       "date": "2026-06-16",
       "title": "Marathon Update 1.1.0.2",
       "summary": "The one about the C.A.R.R.I protocol returning.",
@@ -12,7 +28,7 @@
       "sourceName": "Bungie.net"
     },
     {
-      "id": "bungie-2026-06-09-1",
+      "id": "bungie-2026-06-09-3",
       "date": "2026-06-09",
       "title": "Marathon Update 1.1.0.1",
       "summary": "The one about Sentinel Mastery Entries",
@@ -20,7 +36,7 @@
       "sourceName": "Bungie.net"
     },
     {
-      "id": "bungie-2026-06-02-2",
+      "id": "bungie-2026-06-02-4",
       "date": "2026-06-02",
       "title": "Marathon Update 1.1.0",
       "summary": "The one where the shadows move.",
@@ -36,7 +52,7 @@
       "sourceName": "Bungie.net"
     },
     {
-      "id": "bungie-2026-05-26-3",
+      "id": "bungie-2026-05-26-5",
       "date": "2026-05-26",
       "title": "Marathon Update 1.0.9.1",
       "summary": "The one where Rook escapes.",
@@ -44,7 +60,7 @@
       "sourceName": "Bungie.net"
     },
     {
-      "id": "bungie-2026-05-19-4",
+      "id": "bungie-2026-05-19-6",
       "date": "2026-05-19",
       "title": "Marathon Update 1.0.9",
       "summary": "The one about the Warden Hunt",
