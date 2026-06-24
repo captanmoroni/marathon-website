@@ -1,10 +1,18 @@
 {
-  "fetchedAt": "2026-06-23T19:46:48.133Z",
+  "fetchedAt": "2026-06-24T01:56:38.788Z",
   "feed": "https://www.bungie.net/en/rss/News",
   "note": "Merged official-feed items with seeded sourced entries. Re-run `npm run ingest:news` to refresh.",
   "items": [
     {
       "id": "bungie-2026-06-23-0",
+      "date": "2026-06-23",
+      "title": "Marathon Key Dates",
+      "summary": "Mid-season begins July 21 and includes Vault Breaker, an experimental PVE mode on Cryo Archive.",
+      "url": "https://www.bungie.net/7/en/News/Article/season_2_key_dates",
+      "sourceName": "Bungie.net"
+    },
+    {
+      "id": "bungie-2026-06-23-1",
       "date": "2026-06-23",
       "title": "Get to Know Marathon’s Bungie Rewards",
       "summary": "How to secure exclusive merchandise for your IRL vault.",
@@ -12,7 +20,7 @@
       "sourceName": "Bungie.net"
     },
     {
-      "id": "bungie-2026-06-23-1",
+      "id": "bungie-2026-06-23-2",
       "date": "2026-06-23",
       "title": "Marathon Update 1.1.0.3",
       "summary": "The one about Cryo Archive Sponsored Kits.",
@@ -20,7 +28,7 @@
       "sourceName": "Bungie.net"
     },
     {
-      "id": "bungie-2026-06-16-2",
+      "id": "bungie-2026-06-16-3",
       "date": "2026-06-16",
       "title": "Marathon Update 1.1.0.2",
       "summary": "The one about the C.A.R.R.I protocol returning.",
@@ -28,7 +36,7 @@
       "sourceName": "Bungie.net"
     },
     {
-      "id": "bungie-2026-06-09-3",
+      "id": "bungie-2026-06-09-4",
       "date": "2026-06-09",
       "title": "Marathon Update 1.1.0.1",
       "summary": "The one about Sentinel Mastery Entries",
@@ -36,7 +44,7 @@
       "sourceName": "Bungie.net"
     },
     {
-      "id": "bungie-2026-06-02-4",
+      "id": "bungie-2026-06-02-5",
       "date": "2026-06-02",
       "title": "Marathon Update 1.1.0",
       "summary": "The one where the shadows move.",
@@ -52,7 +60,7 @@
       "sourceName": "Bungie.net"
     },
     {
-      "id": "bungie-2026-05-26-5",
+      "id": "bungie-2026-05-26-6",
       "date": "2026-05-26",
       "title": "Marathon Update 1.0.9.1",
       "summary": "The one where Rook escapes.",
