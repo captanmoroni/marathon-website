@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-07-12T12:47:32.174Z",
+  "fetchedAt": "2026-07-12T18:44:38.913Z",
   "feed": "https://www.bungie.net/en/rss/News",
   "note": "Merged official-feed items with seeded sourced entries. Re-run `npm run ingest:news` to refresh.",
   "items": [
