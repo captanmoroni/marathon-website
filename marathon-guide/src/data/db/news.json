@@ -1,10 +1,18 @@
 {
-  "fetchedAt": "2026-08-25T12:21:17.060Z",
+  "fetchedAt": "2026-08-25T18:19:56.228Z",
   "feed": "https://www.bungie.net/en/rss/News",
   "note": "Merged official-feed items with seeded sourced entries. Re-run `npm run ingest:news` to refresh.",
   "items": [
     {
-      "id": "bungie-2026-08-18-0",
+      "id": "bungie-2026-08-25-0",
+      "date": "2026-08-25",
+      "title": "Marathon Update 1.1.5.5",
+      "summary": "The one about the UESC Manifests",
+      "url": "https://www.bungie.net/7/en/News/Article/marathon_update_1_1_5_5",
+      "sourceName": "Bungie.net"
+    },
+    {
+      "id": "bungie-2026-08-18-1",
       "date": "2026-08-18",
       "title": "Marathon Update 1.1.5.4",
       "summary": "The one about Ordnance Heist",
@@ -12,7 +20,7 @@
       "sourceName": "Bungie.net"
     },
     {
-      "id": "bungie-2026-08-11-1",
+      "id": "bungie-2026-08-11-2",
       "date": "2026-08-11",
       "title": "Marathon Update 1.1.5.3",
       "summary": "The one about the FPS counter",
@@ -20,7 +28,7 @@
       "sourceName": "Bungie.net"
     },
     {
-      "id": "bungie-2026-08-04-2",
+      "id": "bungie-2026-08-04-3",
       "date": "2026-08-04",
       "title": "Marathon Update 1.1.5.2",
       "summary": "The one about more Vault Breaker",
@@ -28,7 +36,7 @@
       "sourceName": "Bungie.net"
     },
     {
-      "id": "bungie-2026-07-28-3",
+      "id": "bungie-2026-07-28-4",
       "date": "2026-07-28",
       "title": "Marathon Update 1.1.5.1",
       "summary": "The one about VIP reward packages",
@@ -36,7 +44,7 @@
       "sourceName": "Bungie.net"
     },
     {
-      "id": "bungie-2026-07-21-4",
+      "id": "bungie-2026-07-21-5",
       "date": "2026-07-21",
       "title": "Marathon Update 1.1.5",
       "summary": "The one about Vault Breaker",
@@ -44,7 +52,7 @@
       "sourceName": "Bungie.net"
     },
     {
-      "id": "bungie-2026-07-16-5",
+      "id": "bungie-2026-07-16-6",
       "date": "2026-07-16",
       "title": "Marathon Mid-Season 2 Update Preview",
       "summary": "Kick some ice.",
@@ -52,7 +60,7 @@
       "sourceName": "Bungie.net"
     },
     {
-      "id": "bungie-2026-07-09-6",
+      "id": "bungie-2026-07-09-7",
       "date": "2026-07-09",
       "title": "Marathon Update 1.1.0.5",
       "summary": "The solo note about Solos.",
@@ -60,7 +68,7 @@
       "sourceName": "Bungie.net"
     },
     {
-      "id": "bungie-2026-07-07-7",
+      "id": "bungie-2026-07-07-8",
       "date": "2026-07-07",
       "title": "Marathon Update 1.1.0.4",
       "summary": "The one about Cryo lasers.",
@@ -68,7 +76,7 @@
       "sourceName": "Bungie.net"
     },
     {
-      "id": "bungie-2026-06-23-8",
+      "id": "bungie-2026-06-23-9",
       "date": "2026-06-23",
       "title": "Marathon Key Dates",
       "summary": "Mid-season begins July 21 and includes Vault Breaker, an experimental PVE mode on Cryo Archive.",
@@ -76,7 +84,7 @@
       "sourceName": "Bungie.net"
     },
     {
-      "id": "bungie-2026-06-23-9",
+      "id": "bungie-2026-06-23-10",
       "date": "2026-06-23",
       "title": "Get to Know Marathon’s Bungie Rewards",
       "summary": "How to secure exclusive merchandise for your IRL vault.",
@@ -84,7 +92,7 @@
       "sourceName": "Bungie.net"
     },
     {
-      "id": "bungie-2026-06-23-10",
+      "id": "bungie-2026-06-23-11",
       "date": "2026-06-23",
       "title": "Marathon Update 1.1.0.3",
       "summary": "The one about Cryo Archive Sponsored Kits.",
@@ -92,7 +100,7 @@
       "sourceName": "Bungie.net"
     },
     {
-      "id": "bungie-2026-06-16-11",
+      "id": "bungie-2026-06-16-12",
       "date": "2026-06-16",
       "title": "Marathon Update 1.1.0.2",
       "summary": "The one about the C.A.R.R.I protocol returning.",
@@ -100,7 +108,7 @@
       "sourceName": "Bungie.net"
     },
     {
-      "id": "bungie-2026-06-09-12",
+      "id": "bungie-2026-06-09-13",
       "date": "2026-06-09",
       "title": "Marathon Update 1.1.0.1",
       "summary": "The one about Sentinel Mastery Entries",
